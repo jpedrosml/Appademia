@@ -1,8 +1,9 @@
+import System.IO
+import qualified System.Process as SP
 ---nada funciona ainda---
 
 {-# LANGUAGE BlockArguments #-}
 data Usuario = Usuario Int String Int Double Double String String 
-
 
 
 cadastrarUsuario :: [Usuario] -> Usuario -> [Usuario]
@@ -19,7 +20,8 @@ usuarioCheck  usuarios id
     |userId(head usuarios) == id = True 
     |otherwise = usuarioCheck(tail usuarios) id
 
-opcao '1' academia = do
+opcao :: Char -> IO()
+opcao '1' = do
     putStr "Nome completo: "
     nome <- getLine
     putStr "Idade: "
@@ -33,40 +35,59 @@ opcao '1' academia = do
     putStr "Primeira vez em uma academia?[sim/nao]: "
     resposta <- getLine
     putStrLn ""
+    limparTela
+    menu
     
-
-opcao '2' academia = do
+opcao '2' = do
     putStr "Qual o seu id?: "
     id <-getLine 
     putStr ""
+    limparTela
+    menu
 
-opcao '3' academia = do
+opcao '3' = do
     putStr "Qual o seu id?: "
     id <-getLine 
     putStr ""
+    limparTela
+    menu
 
-opcao '4' academia = do
+opcao '4' = do
     putStr "Qual o seu id?: "
     id <-getLine 
     putStr ""
+    limparTela
+    menu
 
-opcao '5' acadmeia = do
+opcao '5' = do
     putStr "Qual o seu id?: "
     id <-getLine 
     putStr "Peso atual: "
     pesoAtual <-getLine
     putStr ""
+    limparTela
+    menu
 
-opcao '6' academia = do
+opcao '6' = do
     putStr "Qual o seu id?: "
     id <-getLine 
     putStr ""
+    limparTela
+    menu
 
-opcao _ academia = do
-    menu academia
+opcao _  = do
+    putStr ""
+    menu
 
 
-menu academia = do
+limparTela :: IO()
+limparTela = do
+    _ <- SP.system "cls"
+    return ()
+
+-- menu academia
+menu :: IO()
+menu = do
     putStrLn "-------------------------------- Bem vindo ao Appademia! --------------------------------"
     putStrLn "Escolha uma opção: "
     putStrLn "1. Novo usuario;"
@@ -78,9 +99,13 @@ menu academia = do
     putStrLn "7. Ajuda;"
     putStrLn ""
     putStrLn "Opcao escolhida -> "
-    op <- getChar
-    putStrLn ""
-    opcao op academia
 
+    op <- getChar
+    getChar
+    putStrLn ""
+    opcao op
+
+start :: IO()
 start = do
-    menu[]
+    limparTela
+    menu
