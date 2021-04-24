@@ -116,10 +116,10 @@ menu usuarios = do
     putStrLn "7. Ajuda;"
     putStrLn ""
     putStrLn "Opcao escolhida -> "
-    op <- getChar   
+    op <- getChar
+    getChar
     opcao op usuarios
 
 main :: IO()
 main = do
-    hSetBuffering stdin NoBuffering
     menu []
