@@ -1,83 +1,101 @@
-import System.IO
+import Data.List
+import System.IO (hSetBuffering, stdin, BufferMode(NoBuffering))
 import qualified System.Process as SP
 ---nada funciona ainda---
 
 {-# LANGUAGE BlockArguments #-}
-data Usuario = Usuario Int String Int Double Double String String 
+data Usuario = Usuario {id:: Int,   
+                        nome::String, 
+                        idade:: String ,
+                        peso:: String,
+                        altura:: String,
+                        plano:: String,
+                        resposta:: String 
+                        }
 
+
+userId :: Usuario -> Int
+userId (Usuario id _ _ _ _ _ _ ) = id
 
 cadastrarUsuario :: [Usuario] -> Usuario -> [Usuario]
 cadastrarUsuario usuarios usuario
     |usuarioCheck usuarios (userId usuario) = usuarios
     |otherwise = usuarios ++ [usuario]
 
-
-userId :: Usuario -> Int
-userId (Usuario id _ _ _ _ _ _ ) = id
+exibirUsuario :: [Usuario] -> Int -> String
+exibirUsuario []_ = "Nao cadastrado"
+exibirUsuario usuarios id
+    | userId (head usuarios) == id = toString(head usuarios)  
+    | otherwise = "Nao cadastrado"
 
 usuarioCheck :: [Usuario] -> Int -> Bool
+usuarioCheck[]_ = False
 usuarioCheck  usuarios id
     |userId(head usuarios) == id = True 
     |otherwise = usuarioCheck(tail usuarios) id
 
-opcao :: Char -> IO()
-opcao '1' = do
-    putStr "Nome completo: "
+toString(Usuario id nome idade peso altura plano resposta) = "--- Dados Usuario --- " ++ "Nome: " ++ show nome ++ "\nIdade: " ++ show idade ++ 
+                                                             "\nPeso: " ++ show peso ++ "\nAltura: " ++ show altura ++ "\nPlano: " ++ show plano ++
+                                                             "\nLevel: " ++ resposta
+
+opcao '1' usuarios = do
+    putStrLn "\nCrie um ID numerico. Ele servira para quaisquer operacao no aplicativo: "
+    id <- getLine
+    putStrLn "\nNome completo: "
     nome <- getLine
-    putStr "Idade: "
+    putStrLn "\nIdade: "
     idade <- getLine
-    putStr "Peso: "
+    putStrLn "\nPeso: "
     peso <- getLine
-    putStr "Altura: "
+    putStrLn "\nAltura: "
     altura <- getLine
-    putStr "Plano de Pagamento: "
+    putStrLn "\nPlano de Pagamento: "
     plano <- getLine
-    putStr "Primeira vez em uma academia?[sim/nao]: "
+    putStrLn "\nPrimeira vez em uma academia?[sim/nao]: "
     resposta <- getLine
     putStrLn ""
-    limparTela
-    menu
+    menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta))
     
-opcao '2' = do
-    putStr "Qual o seu id?: "
+opcao '2' usuarios = do
+    putStrLn "Qual o seu id?: "
     id <-getLine 
     putStr ""
     limparTela
-    menu
+    --menu
 
-opcao '3' = do
-    putStr "Qual o seu id?: "
+opcao '3' usuarios = do
+    putStrLn "\nQual o seu id?: "
     id <-getLine 
-    putStr ""
+    putStrLn ""
     limparTela
-    menu
+     --menu
 
-opcao '4' = do
-    putStr "Qual o seu id?: "
+opcao '4' usuarios = do
+    putStrLn "Qual o seu id?: "
     id <-getLine 
-    putStr ""
+    putStrLn ""
     limparTela
-    menu
+     --menu
 
-opcao '5' = do
-    putStr "Qual o seu id?: "
+opcao '5' usuarios = do
+    putStrLn "Qual o seu id?: "
     id <-getLine 
-    putStr "Peso atual: "
+    putStrLn "Peso atual: "
     pesoAtual <-getLine
-    putStr ""
+    putStrLn ""
     limparTela
-    menu
+   --menu
 
-opcao '6' = do
-    putStr "Qual o seu id?: "
+opcao '6' usuarios = do
+    putStrLn "Qual o seu id?: "
     id <-getLine 
-    putStr ""
-    limparTela
-    menu
+    putStrLn ""
+    putStr(exibirUsuario usuarios (read id :: Int))
+    putStrLn ""
+    menu usuarios
 
-opcao _  = do
-    putStr ""
-    menu
+opcao _  usuarios = do
+    menu usuarios
 
 
 limparTela :: IO()
@@ -86,8 +104,7 @@ limparTela = do
     return ()
 
 -- menu academia
-menu :: IO()
-menu = do
+menu usuarios = do
     putStrLn "-------------------------------- Bem vindo ao Appademia! --------------------------------"
     putStrLn "Escolha uma opção: "
     putStrLn "1. Novo usuario;"
@@ -99,13 +116,10 @@ menu = do
     putStrLn "7. Ajuda;"
     putStrLn ""
     putStrLn "Opcao escolhida -> "
+    op <- getChar   
+    opcao op usuarios
 
-    op <- getChar
-    getChar
-    putStrLn ""
-    opcao op
-
-start :: IO()
-start = do
-    limparTela
-    menu
+main :: IO()
+main = do
+    hSetBuffering stdin NoBuffering
+    menu []
