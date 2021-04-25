@@ -1,7 +1,9 @@
+import Data.Time.Clock
+import Data.Time.Calendar
+import Data.Functor
 import Data.List
 import System.IO (hSetBuffering, stdin, BufferMode(NoBuffering))
 import qualified System.Process as SP
----nada funciona ainda---
 
 {-# LANGUAGE BlockArguments #-}
 data Usuario = Usuario {id:: Int,   
@@ -10,12 +12,12 @@ data Usuario = Usuario {id:: Int,
                         peso:: String,
                         altura:: String,
                         plano:: String,
-                        resposta:: String 
+                        resposta:: String,
+                        dataEntrada :: String
                         }
 
-
 userId :: Usuario -> Int
-userId (Usuario id _ _ _ _ _ _ ) = id
+userId (Usuario id _ _ _ _ _ _ _ ) = id
 
 cadastrarUsuario :: [Usuario] -> Usuario -> [Usuario]
 cadastrarUsuario usuarios usuario
@@ -26,7 +28,7 @@ exibirUsuario :: [Usuario] -> Int -> String
 exibirUsuario []_ = "Nao cadastrado"
 exibirUsuario usuarios id
     | userId (head usuarios) == id = toString(head usuarios)  
-    | otherwise = "Nao cadastrado"
+    | otherwise = exibirUsuario(tail usuarios) id
 
 usuarioCheck :: [Usuario] -> Int -> Bool
 usuarioCheck[]_ = False
@@ -34,9 +36,17 @@ usuarioCheck  usuarios id
     |userId(head usuarios) == id = True 
     |otherwise = usuarioCheck(tail usuarios) id
 
-toString(Usuario id nome idade peso altura plano resposta) = "--- Dados Usuario --- " ++ "Nome: " ++ show nome ++ "\nIdade: " ++ show idade ++ 
+atualizarPesoUsuario :: [Usuario] -> Int -> String -> [Usuario]
+atualizarPesoUsuario [usuario] id peso
+    | userId usuario == id = [mudaPeso usuario peso]
+    | otherwise = [usuario]
+
+
+
+toString(Usuario id nome idade peso altura plano resposta dataEntrada) = "--- Dados Usuario --- " ++ "Nome: " ++ show nome ++ "\nIdade: " ++ show idade ++ 
                                                              "\nPeso: " ++ show peso ++ "\nAltura: " ++ show altura ++ "\nPlano: " ++ show plano ++
-                                                             "\nLevel: " ++ resposta
+                                                             "\nLevel: " ++ resposta ++ "\nMembro desde: " ++ dataEntrada ++ "\n"
+mudaPeso (Usuario id nome idade peso altura plano resposta dataEntrada) novoPeso = Usuario id nome idade novoPeso altura plano resposta dataEntrada
 
 opcao '1' usuarios = do
     putStrLn "\nCrie um ID numerico. Ele servira para quaisquer operacao no aplicativo: "
@@ -53,8 +63,9 @@ opcao '1' usuarios = do
     plano <- getLine
     putStrLn "\nPrimeira vez em uma academia?[sim/nao]: "
     resposta <- getLine
+    dataEntrada <- fmap show getCurrentTime 
     putStrLn ""
-    menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta))
+    menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada))
     
 opcao '2' usuarios = do
     putStrLn "Qual o seu id?: "
@@ -79,12 +90,11 @@ opcao '4' usuarios = do
 
 opcao '5' usuarios = do
     putStrLn "Qual o seu id?: "
-    id <-getLine 
+    id <- getLine 
     putStrLn "Peso atual: "
-    pesoAtual <-getLine
+    pesoAtual <- getLine
     putStrLn ""
-    limparTela
-   --menu
+    menu (atualizarPesoUsuario usuarios (read id :: Int) pesoAtual)
 
 opcao '6' usuarios = do
     putStrLn "Qual o seu id?: "
@@ -117,9 +127,9 @@ menu usuarios = do
     putStrLn ""
     putStrLn "Opcao escolhida -> "
     op <- getChar   
+    getChar
     opcao op usuarios
 
 main :: IO()
 main = do
-    hSetBuffering stdin NoBuffering
     menu []
