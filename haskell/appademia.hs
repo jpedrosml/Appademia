@@ -139,24 +139,7 @@ opcao _  usuarios = do
 termos :: IO()
 termos = do
     limparTela
-    Termos.disp
-    putStrLn ""
-    Termos.abs 
-    putStrLn ""
-    Termos.acidoLatico 
-    putStrLn ""
-    Termos.aerobico 
-    putStrLn ""
-    Termos.anabolismo 
-    putStrLn ""
-    Termos.catabolismo 
-    putStrLn ""
-    Termos.bulking 
-    putStrLn ""
-    Termos.cutting 
-    putStrLn ""
-    Termos.bodybuilding 
-    putStrLn ""
+    putStrLn Termos.topicos 
     putStrLn "Pressione Enter para voltar ao menu principal."
     
     getLine
