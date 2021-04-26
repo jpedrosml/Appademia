@@ -1,9 +1,11 @@
-import Data.Time.Clock
+import Termos
+import Data.Time.Clock ( getCurrentTime )
 import Data.Time.Calendar
 import Data.Functor
 import Data.List
 import System.IO (hSetBuffering, stdin, BufferMode(NoBuffering))
 import qualified System.Process as SP
+
 
 {-# LANGUAGE BlockArguments #-}
 data Usuario = Usuario {id:: Int,   
@@ -41,12 +43,17 @@ atualizarPesoUsuario [usuario] id peso
     | userId usuario == id = [mudaPeso usuario peso]
     | otherwise = [usuario]
 
-
+removeItem :: Int -> [Usuario] -> [Usuario]
+removeItem _ []     = []
+removeItem id usuarios
+    |userId(head usuarios) == id = removeItem id (tail usuarios)
+    |otherwise = removeItem id (tail usuarios)
 
 toString(Usuario id nome idade peso altura plano resposta dataEntrada) = "--- Dados Usuario --- " ++ "Nome: " ++ show nome ++ "\nIdade: " ++ show idade ++ 
                                                              "\nPeso: " ++ show peso ++ "\nAltura: " ++ show altura ++ "\nPlano: " ++ show plano ++
                                                              "\nLevel: " ++ resposta ++ "\nMembro desde: " ++ dataEntrada ++ "\n"
 mudaPeso (Usuario id nome idade peso altura plano resposta dataEntrada) novoPeso = Usuario id nome idade novoPeso altura plano resposta dataEntrada
+
 
 opcao '1' usuarios = do
     putStrLn "\nCrie um ID numerico. Ele servira para quaisquer operacao no aplicativo: "
@@ -132,17 +139,23 @@ opcao _  usuarios = do
 termos :: IO()
 termos = do
     limparTela
-    putStrLn "-- TERMOS DO MUNDO DA MUSCULAÇÃO xD --"
-    putStrLn "ABS: ..."
-    putStrLn "Acidolatico: ..."
-    putStrLn "Aerobico: ..."
-    putStrLn "Cardio: ..."
-    putStrLn "Anabolismo: ..."
-    putStrLn "Metabolismo: ..."
-    putStrLn "Catabolismo: ..."
-    putStrLn "Bulking: ..."
-    putStrLn "Cutting: ..."
-    putStrLn "Bodybuilding: ..."
+    Termos.disp
+    putStrLn ""
+    Termos.abs 
+    putStrLn ""
+    Termos.acidoLatico 
+    putStrLn ""
+    Termos.aerobico 
+    putStrLn ""
+    Termos.anabolismo 
+    putStrLn ""
+    Termos.catabolismo 
+    putStrLn ""
+    Termos.bulking 
+    putStrLn ""
+    Termos.cutting 
+    putStrLn ""
+    Termos.bodybuilding 
     putStrLn ""
     putStrLn "Pressione Enter para voltar ao menu principal."
     
@@ -192,7 +205,7 @@ cancel = do
     putStrLn "Ou compareça à administração da academia."
     putStrLn ""
     putStrLn "Pressione Enter para voltar ao menu principal."
-    
+    putStrLn ""
     getLine
     
     main
