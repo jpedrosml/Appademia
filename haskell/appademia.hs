@@ -1,3 +1,5 @@
+import Dicas
+import Planos
 import Termos
 import Data.Time.Clock ( getCurrentTime )
 import Data.Time.Calendar
@@ -140,8 +142,7 @@ termos :: IO()
 termos = do
     limparTela
     putStrLn Termos.topicos 
-    putStrLn "Pressione Enter para voltar ao menu principal."
-    
+
     getLine
     
     main
@@ -150,13 +151,7 @@ termos = do
 planos :: IO()
 planos = do
     limparTela
-    putStrLn "-- PLANOS E PREÇOS :O --"
-    putStrLn "Plano Anual:         12 x R$76,90"
-    putStrLn "Plano Semestral:      6 x R$82,90"
-    putStrLn "Plano Trimestral:     3 x R$87,90"
-    putStrLn "Plano Mensal:             R$98,00"
-    putStrLn ""
-    putStrLn "Pressione Enter para voltar ao menu principal."
+    putStrLn Planos.plano 
     
     getLine
     
@@ -166,15 +161,7 @@ planos = do
 dicas :: IO()
 dicas = do
     limparTela
-    putStrLn "-- DICAS IMPORTANTES :) --"
-    putStrLn "Dica 1: ..."
-    putStrLn "Dica 2: ..."
-    putStrLn "Dica 3: ..."
-    putStrLn "Dica 4: ..."
-    putStrLn "Dica 5: ..."
-    putStrLn ""
-    putStrLn "Pressione Enter para voltar ao menu principal."
-    
+    putStrLn Dicas.dica   
     getLine
     
     main

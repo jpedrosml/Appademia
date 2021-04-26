@@ -2,6 +2,7 @@ module Termos where
 topicos :: String
 topicos =  unlines [
     "-- TERMOS DO MUNDO DA MUSCULAÇÃO xD --",
+    
     "\nABS: Abreviacao para os musculos do abdomen. Sempre que escutar ou ler alguem dizendo que ira treinar o abs, eh do abdomen que ela esta falando!\nExemplos de treinos de abdomen: Plank(max), Lateral Plank (max), Leg Raises(3x10)",
 
     "\nAcido Latico: Resultado natural do metabolismo. Quando um individuo sente o musculo queimando durante um exercicio, eh o resultado do acumulo de acido latico devido a falta de oxigenio no sangue",
@@ -16,5 +17,7 @@ topicos =  unlines [
 
     "\nCutting: Fase de definicao do corpo, onde ha uma dieta restritiva para forcar o corpo a usar gordura como fonte de energia.",
 
-    "\nBodybuilding: Equivale a fisiculturismo, em portugues. Desta forma, um bodybuilder eh um fisiculturista.\nAlguns icones do fisiculturismo: Frank Zane, Dorian Yates, Arnold Schwarzenegger"
+    "\nBodybuilding: Equivale a fisiculturismo, em portugues. Desta forma, um bodybuilder eh um fisiculturista.\nAlguns icones do fisiculturismo: Frank Zane, Dorian Yates, Arnold Schwarzenegger",
+
+    "\nPressione Enter para voltar ao menu principal."
  ]
