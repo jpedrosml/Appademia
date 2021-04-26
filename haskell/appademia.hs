@@ -71,22 +71,22 @@ opcao '2' usuarios = do
     putStrLn "Qual o seu id?: "
     id <-getLine 
     putStr ""
-    limparTela
-    --menu
+    --limparTela
+    main
 
 opcao '3' usuarios = do
     putStrLn "\nQual o seu id?: "
     id <-getLine 
     putStrLn ""
-    limparTela
-     --menu
+    --limparTela
+    main
 
 opcao '4' usuarios = do
     putStrLn "Qual o seu id?: "
     id <-getLine 
     putStrLn ""
-    limparTela
-     --menu
+    --limparTela
+    main
 
 opcao '5' usuarios = do
     putStrLn "Qual o seu id?: "
@@ -104,9 +104,98 @@ opcao '6' usuarios = do
     putStrLn ""
     menu usuarios
 
+opcao '7' usuarios = do
+    limparTela
+    putStrLn "--- Como o Appademia pode te ajudar? ---"
+    putStrLn "1 - Termos do mundo da musculação."
+    putStrLn "2 - Planos de pagamento."
+    putStrLn "3 - Dicas para novatos."
+    putStrLn "4 - Cancelamento de matricula."
+    putStrLn "5 - voltar."
+    putStrLn ""
+    putStrLn "Opcao escolhida -> "
+    guess <- getLine
+    if guess == "1" 
+        then termos
+    else if guess == "2"
+        then planos
+    else if guess == "3"
+        then dicas
+    else if guess == "4"
+        then cancel
+    else main
+
 opcao _  usuarios = do
     menu usuarios
 
+
+termos :: IO()
+termos = do
+    limparTela
+    putStrLn "-- TERMOS DO MUNDO DA MUSCULAÇÃO xD --"
+    putStrLn "ABS: ..."
+    putStrLn "Acidolatico: ..."
+    putStrLn "Aerobico: ..."
+    putStrLn "Cardio: ..."
+    putStrLn "Anabolismo: ..."
+    putStrLn "Metabolismo: ..."
+    putStrLn "Catabolismo: ..."
+    putStrLn "Bulking: ..."
+    putStrLn "Cutting: ..."
+    putStrLn "Bodybuilding: ..."
+    putStrLn ""
+    putStrLn "Pressione Enter para voltar ao menu principal."
+    
+    getLine
+    
+    main
+
+
+planos :: IO()
+planos = do
+    limparTela
+    putStrLn "-- PLANOS E PREÇOS :O --"
+    putStrLn "Plano Anual:         12 x R$76,90"
+    putStrLn "Plano Semestral:      6 x R$82,90"
+    putStrLn "Plano Trimestral:     3 x R$87,90"
+    putStrLn "Plano Mensal:             R$98,00"
+    putStrLn ""
+    putStrLn "Pressione Enter para voltar ao menu principal."
+    
+    getLine
+    
+    main
+
+    
+dicas :: IO()
+dicas = do
+    limparTela
+    putStrLn "-- DICAS IMPORTANTES :) --"
+    putStrLn "Dica 1: ..."
+    putStrLn "Dica 2: ..."
+    putStrLn "Dica 3: ..."
+    putStrLn "Dica 4: ..."
+    putStrLn "Dica 5: ..."
+    putStrLn ""
+    putStrLn "Pressione Enter para voltar ao menu principal."
+    
+    getLine
+    
+    main
+
+
+cancel :: IO()
+cancel = do
+    limparTela
+    putStrLn "-- CANCELAMENTO DE MATRICULA :( --"
+    putStrLn "Para realizar o cancelamento da matricula entre em contato com (XX)XXXXX-XXXX."
+    putStrLn "Ou compareça à administração da academia."
+    putStrLn ""
+    putStrLn "Pressione Enter para voltar ao menu principal."
+    
+    getLine
+    
+    main
 
 limparTela :: IO()
 limparTela = do
@@ -132,4 +221,5 @@ menu usuarios = do
 
 main :: IO()
 main = do
+    limparTela
     menu []
