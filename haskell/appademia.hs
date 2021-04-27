@@ -60,6 +60,11 @@ atualizarTreinoUsuario [usuario] id treino
     | userId usuario == id = [mudaTreino usuario treino]
     | otherwise = [usuario]
 
+existeUsuario :: Bool -> String 
+existeUsuario existe
+    | existe  = "\nUsuario ja cadastrado.\n"
+    | otherwise = "\nCadastro com sucesso\n"
+
 removeItem :: Int -> [Usuario] -> [Usuario]
 removeItem _ []     = []
 removeItem id usuarios
@@ -74,7 +79,8 @@ toString(Usuario id nome idade peso altura plano resposta dataEntrada treino) = 
                                                             "\nPlano: " ++ show plano ++
                                                             "\nLevel: " ++ resposta ++ 
                                                             "\nMembro desde: " ++ dataEntrada ++ 
-                                                            "\nTreino: " ++ treino -- treino exibindo aqui apenas para teste
+                                                            "\nTreino: " ++ treino  -- treino exibindo aqui apenas para teste ++
+                                                            
 
 mudaPeso (Usuario id nome idade peso altura plano resposta dataEntrada treino) novoPeso = Usuario id nome idade novoPeso altura plano resposta dataEntrada treino
 
@@ -99,6 +105,7 @@ opcao '1' usuarios = do
     putStrLn "\nPrimeira vez em uma academia?[sim/nao]: "
     resposta <- getLine
     limparTela
+    putStr (existeUsuario(usuarioCheck usuarios(read id :: Int)))
     if resposta ==  "sim"
         then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada TreinoIniciante.treinoIni))
     else if resposta == "nao"

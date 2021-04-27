@@ -2,6 +2,8 @@ module TreinoIniciante where
 
 treinoIni :: String
 treinoIni =  unlines [
+    "",
+
     "\n-- TREINO INICIANTE xD --",
     
     "\n- Leg Press 2x15",
@@ -23,6 +25,6 @@ treinoIni =  unlines [
     "\n- Mesa Flexora 3x10",
 
     "\n- Biceps alternados 3x20(10 cada braco)",
-    
+
     "\n- Barra reta 3x10"
  ]
