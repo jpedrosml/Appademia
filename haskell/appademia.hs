@@ -4,10 +4,12 @@ import TreinoAvancado
 import Dicas
 import Planos
 import Termos
+import Imc
 import Data.Time.Clock ( getCurrentTime )
 import Data.Time.Calendar
 import Data.Functor
 import Data.List
+import Data.Char
 import System.IO (hSetBuffering, stdin, BufferMode(NoBuffering))
 import qualified System.Process as SP
 
@@ -15,9 +17,9 @@ import qualified System.Process as SP
 {-# LANGUAGE BlockArguments #-}
 data Usuario = Usuario {id:: Int,   
                         nome::String, 
-                        idade:: String ,
-                        peso:: String,
-                        altura:: String,
+                        idade:: Int ,
+                        peso:: Float,
+                        altura:: Float,
                         plano:: String,
                         resposta:: String,
                         dataEntrada :: String,
@@ -26,6 +28,10 @@ data Usuario = Usuario {id:: Int,
 
 userId :: Usuario -> Int
 userId (Usuario id _ _ _ _ _ _ _ _) = id
+
+userPeso :: Usuario -> Float
+userPeso (Usuario _ _ _ peso _ _ _ _ _ ) = peso
+
 
 cadastrarUsuario :: [Usuario] -> Usuario -> [Usuario]
 cadastrarUsuario usuarios usuario
@@ -44,7 +50,7 @@ usuarioCheck  usuarios id
     |userId(head usuarios) == id = True 
     |otherwise = usuarioCheck(tail usuarios) id
 
-atualizarPesoUsuario :: [Usuario] -> Int -> String -> [Usuario]
+atualizarPesoUsuario :: [Usuario] -> Int -> Float -> [Usuario]
 atualizarPesoUsuario [usuario] id peso
     | userId usuario == id = [mudaPeso usuario peso]
     | otherwise = [usuario]
@@ -68,7 +74,7 @@ toString(Usuario id nome idade peso altura plano resposta dataEntrada treino) = 
                                                             "\nPlano: " ++ show plano ++
                                                             "\nLevel: " ++ resposta ++ 
                                                             "\nMembro desde: " ++ dataEntrada ++ 
-                                                            "\ntreino: " ++ treino -- treino exibindo aqui apenas para teste
+                                                            "\nTreino: " ++ treino -- treino exibindo aqui apenas para teste
 
 mudaPeso (Usuario id nome idade peso altura plano resposta dataEntrada treino) novoPeso = Usuario id nome idade novoPeso altura plano resposta dataEntrada treino
 
@@ -83,37 +89,37 @@ opcao '1' usuarios = do
     putStrLn "\nNome completo: "
     nome <- getLine
     putStrLn "\nIdade: "
-    idade <- getLine
+    idade <- readLn
     putStrLn "\nPeso: "
-    peso <- getLine
+    peso <- readLn
     putStrLn "\nAltura: "
-    altura <- getLine
+    altura <- readLn
     putStrLn "\nPlano de Pagamento[mensal/trimestral/anual]: "
     plano <- getLine
     putStrLn "\nPrimeira vez em uma academia?[sim/nao]: "
     resposta <- getLine
     limparTela
-    if(resposta == "sim")
+    if resposta ==  "sim"
         then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada TreinoIniciante.treinoIni))
-    else if(resposta == "nao")
+    else if resposta == "nao"
         then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada TreinoMedio.treinoMed))
     else putStrLn "opcao invalida"
-
+   
     putStrLn ""
     
     
 opcao '2' usuarios = do
     putStrLn "\nQual o seu id?: "
     id <-getLine 
-    putStrLn "\nQual treino você gostaria de cadastrar?[iniciante/medio/avancado]"
+    putStrLn "\nQual treino você gostaria de cadastrar? [Iniciante/Medio/Avancado]"
     treino <- getLine
     putStrLn ""
     limparTela
-    if(treino == "iniciante")
+    if treino == "iniciante"
         then menu (atualizarTreinoUsuario usuarios (read id :: Int ) TreinoIniciante.treinoIni)
-    else if(treino == "medio")
+    else if treino == "medio"
         then menu (atualizarTreinoUsuario usuarios (read id :: Int ) TreinoMedio.treinoMed)
-    else if (treino == "avancado")
+    else if treino == "avancado"
         then menu (atualizarTreinoUsuario usuarios (read id :: Int ) TreinoAvancado.treinoAva)
     else putStrLn "opcao invalida"
     
@@ -129,7 +135,7 @@ opcao '4' usuarios = do
     putStrLn "\nQual o seu id?: "
     id <- getLine 
     putStrLn "Peso atual: "
-    pesoAtual <- getLine
+    pesoAtual <- readLn
     putStrLn ""
     menu (atualizarPesoUsuario usuarios (read id :: Int) pesoAtual)
 
@@ -151,7 +157,7 @@ opcao '6' usuarios = do
     putStrLn "2 - Planos de pagamento."
     putStrLn "3 - Dicas para novatos."
     putStrLn "4 - Cancelamento de matricula."
-    putStrLn "5 - voltar."
+    putStrLn "5 - Tabela IMC."
     putStrLn ""
     putStrLn "Opcao escolhida -> "
     guess <- getLine
@@ -163,6 +169,8 @@ opcao '6' usuarios = do
         then dicas
     else if guess == "4"
         then cancel
+    else if guess == "5"
+        then imc
     else main
 
 opcao _  usuarios = do
@@ -204,6 +212,13 @@ cancel = do
     putStrLn ""
     getLine
     
+    main
+
+imc :: IO()
+imc = do
+    limparTela
+    putStrLn Imc.indice
+    getLine
     main
 
 limparTela :: IO()
