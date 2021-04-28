@@ -2,6 +2,9 @@ module Dieta where
 
 bulking :: String
 bulking = unlines [
+
+    "  ---TREINO PARA BULKING:---  ",
+
     "\n  --- Cafe da manha ---  ",
 
     "\n- Aveia (3 colheres de sopa); ",
@@ -67,6 +70,9 @@ bulking = unlines [
 
 cutting :: String
 cutting = unlines [
+
+    "  ---TREINO PARA CUTTING:---  ",
+
     "\n  --- Cafe da manha ---  ",
 
     "\n- Tapica com ovos (2 unidades);",
@@ -105,6 +111,8 @@ cutting = unlines [
 
 perda :: String
 perda = unlines [
+    "  ---TREINO PARA PERDA DE PESO:---  ",
+
     "\n  --- Cafe da manha ---  ",
 
     "\n- Leite desnatado (240ml);",

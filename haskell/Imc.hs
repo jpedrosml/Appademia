@@ -2,7 +2,7 @@ module Imc where
 
 indice :: String
 indice = unlines [
-    "\n---- IMC ----",
+    "---- IMC ----",
     
     "\nIMC eh a sigla para indice de massa corporal, um calculo que indica se a pessoa esta dentro do peso em relacao a sua altura. O calculo eh feito da seguinte forma: ",
 

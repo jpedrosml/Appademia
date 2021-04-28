@@ -6,6 +6,7 @@ import Planos
 import Dieta
 import Termos
 import Imc
+import Cancelamento
 import Data.Time.Clock ( getCurrentTime )
 import Data.Time.Calendar
 import Data.Functor
@@ -13,7 +14,6 @@ import Data.List
 import Data.Char
 import System.IO (hSetBuffering, stdin, BufferMode(NoBuffering))
 import qualified System.Process as SP
-
 
 {-# LANGUAGE BlockArguments #-}
 data Usuario = Usuario {id:: Int,   
@@ -32,7 +32,6 @@ userId (Usuario id _ _ _ _ _ _ _ _) = id
 
 userPeso :: Usuario -> Float
 userPeso (Usuario _ _ _ peso _ _ _ _ _ ) = peso
-
 
 cadastrarUsuario :: [Usuario] -> Usuario -> [Usuario]
 cadastrarUsuario usuarios usuario
@@ -64,7 +63,7 @@ atualizarTreinoUsuario [usuario] id treino
 existeUsuario :: Bool -> String 
 existeUsuario existe
     | existe  = "\nUsuario ja cadastrado.\n"
-    | otherwise = "\nCadastro com sucesso\n"
+    | otherwise = "\nCadastro com sucesso\n\n"
 
 removeItem :: Int -> [Usuario] -> [Usuario]
 removeItem _ []     = []
@@ -80,13 +79,12 @@ toString(Usuario id nome idade peso altura plano resposta dataEntrada treino) = 
                                                             "\nPlano: " ++ show plano ++
                                                             "\nIniciante: " ++ resposta ++ 
                                                             "\nMembro desde: " ++ dataEntrada ++ 
-                                                            "\nTreino: " ++ treino  -- treino exibindo aqui apenas para teste ++
+                                                            "\nTreino: " ++ treino
                                                             
 
 mudaPeso (Usuario id nome idade peso altura plano resposta dataEntrada treino) novoPeso = Usuario id nome idade novoPeso altura plano resposta dataEntrada treino
 
 mudaTreino (Usuario id nome idade peso altura plano resposta dataEntrada treino) novoTreino = Usuario id nome idade peso altura plano resposta dataEntrada novoTreino
-
 
 opcao '1' usuarios = do
     limparTela
@@ -112,14 +110,12 @@ opcao '1' usuarios = do
     else if resposta == "nao"
         then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada TreinoMedio.treinoMed))
     else putStrLn "opcao invalida"
-   
     putStrLn ""
-    
     
 opcao '2' usuarios = do
     putStrLn "\nQual o seu id?: "
     id <-getLine 
-    putStrLn "\nQual treino você gostaria de cadastrar? [Iniciante/Medio/Avancado]"
+    putStrLn "\nQual treino você gostaria de cadastrar? [iniciante/medio/avancado]"
     treino <- getLine
     putStrLn ""
     limparTela
@@ -130,24 +126,18 @@ opcao '2' usuarios = do
     else if treino == "avancado"
         then menu (atualizarTreinoUsuario usuarios (read id :: Int ) TreinoAvancado.treinoAva)
     else putStrLn "opcao invalida"
-    
     main
 
 opcao '3' usuarios = do
     putStrLn "\nQual o seu id?: "
-    id <-getLine
-    main
-    
-
-opcao '4' usuarios = do
-    putStrLn "\nQual o seu id?: "
     id <- getLine 
-    putStrLn "Peso atual: "
+    putStrLn "\nPeso atual: "
     pesoAtual <- readLn
     putStrLn ""
+    limparTela
     menu (atualizarPesoUsuario usuarios (read id :: Int) pesoAtual)
 
-opcao '5' usuarios = do
+opcao '4' usuarios = do
     putStrLn "\nQual o seu id?: "
     id <-getLine 
     putStrLn ""
@@ -158,22 +148,22 @@ opcao '5' usuarios = do
     limparTela
     menu usuarios
 
-opcao '6' usuarios = do
-    putStrLn "\nQual o seu objetivo? Bulking (B) -- Cutting (C) -- Perda de peso (P)?"
+opcao '5' usuarios = do
+    limparTela
+    putStrLn "Qual o seu objetivo? Bulking (b) -- Cutting (c) -- Perda de peso (p)?"
     guess <- getLine 
-    if guess == "B"
+    limparTela
+    if guess == "b"
         then putStrLn Dieta.bulking 
-    else if guess == "C"
+    else if guess == "c"
         then putStrLn Dieta.cutting 
-    else if guess == "P"
+    else if guess == "p"
         then putStrLn Dieta.perda 
-    else  main
-
+    else main
     getLine 
     main
         
-
-opcao '7' usuarios = do
+opcao '6' usuarios = do
     limparTela
     putStrLn "--- Como o Appademia pode te ajudar? ---"
     putStrLn "1 - Termos do mundo da musculação."
@@ -184,38 +174,23 @@ opcao '7' usuarios = do
     putStrLn ""
     putStrLn "Opcao escolhida -> "
     guess <- getLine
-    if guess == "1" 
+    limparTela
+    if guess == "1"
         then putStrLn Termos.topicos
     else if guess == "2"
         then putStrLn Planos.plano 
     else if guess == "3"
         then putStrLn Dicas.dica 
     else if guess == "4"
-        then cancel
+        then putStrLn Cancelamento.cancel
     else if guess == "5"
         then putStrLn Imc.indice 
     else main
-    
     getLine 
     main
 
 opcao _  usuarios = do
     menu usuarios
-
-
-
-cancel :: IO()
-cancel = do
-    limparTela
-    putStrLn "-- CANCELAMENTO DE MATRICULA :( --"
-    putStrLn "Para realizar o cancelamento da matricula entre em contato com (XX)XXXXX-XXXX."
-    putStrLn "Ou compareça à administração da academia."
-    putStrLn ""
-    putStrLn "Pressione Enter para voltar ao menu principal."
-    putStrLn ""
-    getLine
-    
-    main
 
 limparTela :: IO()
 limparTela = do
@@ -228,11 +203,10 @@ menu usuarios = do
     putStrLn "Escolha uma opção: "
     putStrLn "1. Novo usuario;"
     putStrLn "2. Atualizar treino;"
-    putStrLn "3. Exibir treino;"
-    putStrLn "4. Atualizar peso;"
-    putStrLn "5. Exibir usuario;"
-    putStrLn "6. Recomendacao de Dietas;"
-    putStrLn "7. Ajuda" 
+    putStrLn "3. Atualizar peso;"
+    putStrLn "4. Exibir usuario;"
+    putStrLn "5. Recomendacao de Dietas;"
+    putStrLn "6. Ajuda" 
     putStrLn ""
     putStrLn "Opcao escolhida -> "
     op <- getChar   
