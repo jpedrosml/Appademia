@@ -78,7 +78,7 @@ toString(Usuario id nome idade peso altura plano resposta dataEntrada treino) = 
                                                             "\nPeso: " ++ show peso ++ 
                                                             "\nAltura: " ++ show altura ++ 
                                                             "\nPlano: " ++ show plano ++
-                                                            "\nLevel: " ++ resposta ++ 
+                                                            "\nIniciante: " ++ resposta ++ 
                                                             "\nMembro desde: " ++ dataEntrada ++ 
                                                             "\nTreino: " ++ treino  -- treino exibindo aqui apenas para teste ++
                                                             
