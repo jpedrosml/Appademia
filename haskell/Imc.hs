@@ -39,7 +39,7 @@ classificacaoImc p a
     |(calculaImc p a >= 25.0) && (calculaImc p a <= 29.9)= "Sobrepeso"
     |(calculaImc p a >= 30.0) && (calculaImc p a <= 34.9) = "Obesidade Grau 1"
     |(calculaImc p a >= 35.0) && (calculaImc p a <= 39.9) = "Obesidade Grau 2"
-    | otherwise = "Obesidade Morbida Grau 3"
+    |otherwise = "Obesidade Morbida Grau 3"
 
     
 

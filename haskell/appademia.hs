@@ -3,6 +3,7 @@ import TreinoMedio
 import TreinoAvancado
 import Dicas
 import Planos
+import Dieta
 import Termos
 import Imc
 import Data.Time.Clock ( getCurrentTime )
@@ -158,6 +159,21 @@ opcao '5' usuarios = do
     menu usuarios
 
 opcao '6' usuarios = do
+    putStrLn "\nQual o seu objetivo? Bulking (B) -- Cutting (C) -- Perda de peso (P)?"
+    guess <- getLine 
+    if guess == "B"
+        then putStrLn Dieta.bulking 
+    else if guess == "C"
+        then putStrLn Dieta.cutting 
+    else if guess == "P"
+        then putStrLn Dieta.perda 
+    else  main
+
+    getLine 
+    main
+        
+
+opcao '7' usuarios = do
     limparTela
     putStrLn "--- Como o Appademia pode te ajudar? ---"
     putStrLn "1 - Termos do mundo da musculação."
@@ -169,43 +185,23 @@ opcao '6' usuarios = do
     putStrLn "Opcao escolhida -> "
     guess <- getLine
     if guess == "1" 
-        then termos
+        then putStrLn Termos.topicos
     else if guess == "2"
-        then planos
+        then putStrLn Planos.plano 
     else if guess == "3"
-        then dicas
+        then putStrLn Dicas.dica 
     else if guess == "4"
         then cancel
     else if guess == "5"
-        then imc
+        then putStrLn Imc.indice 
     else main
+    
+    getLine 
+    main
 
 opcao _  usuarios = do
     menu usuarios
 
-
-termos :: IO()
-termos = do
-    limparTela
-    putStrLn Termos.topicos 
-    getLine
-    main
-
-
-planos :: IO()
-planos = do
-    limparTela
-    putStrLn Planos.plano 
-    getLine
-    main
-
-    
-dicas :: IO()
-dicas = do
-    limparTela
-    putStrLn Dicas.dica   
-    getLine
-    main
 
 
 cancel :: IO()
@@ -219,13 +215,6 @@ cancel = do
     putStrLn ""
     getLine
     
-    main
-
-imc :: IO()
-imc = do
-    limparTela
-    putStrLn Imc.indice
-    getLine
     main
 
 limparTela :: IO()
@@ -242,7 +231,8 @@ menu usuarios = do
     putStrLn "3. Exibir treino;"
     putStrLn "4. Atualizar peso;"
     putStrLn "5. Exibir usuario;"
-    putStrLn "6. Ajuda;"
+    putStrLn "6. Recomendacao de Dietas;"
+    putStrLn "7. Ajuda" 
     putStrLn ""
     putStrLn "Opcao escolhida -> "
     op <- getChar   
