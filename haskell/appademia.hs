@@ -1,6 +1,4 @@
-import TreinoIniciante
-import TreinoMedio
-import TreinoAvancado
+import Treino
 import Dicas
 import Planos
 import Dieta
@@ -106,9 +104,9 @@ opcao '1' usuarios = do
     limparTela
     putStr (existeUsuario(usuarioCheck usuarios(read id :: Int)))
     if resposta ==  "sim"
-        then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada TreinoIniciante.treinoIni))
+        then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada Treino.treinoIni))
     else if resposta == "nao"
-        then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada TreinoMedio.treinoMed))
+        then menu (cadastrarUsuario usuarios ( Usuario (read id :: Int)  nome idade peso altura plano resposta dataEntrada Treino.treinoMed))
     else putStrLn "opcao invalida"
     putStrLn ""
     
@@ -120,11 +118,11 @@ opcao '2' usuarios = do
     putStrLn ""
     limparTela
     if treino == "iniciante"
-        then menu (atualizarTreinoUsuario usuarios (read id :: Int ) TreinoIniciante.treinoIni)
+        then menu (atualizarTreinoUsuario usuarios (read id :: Int ) Treino.treinoIni)
     else if treino == "medio"
-        then menu (atualizarTreinoUsuario usuarios (read id :: Int ) TreinoMedio.treinoMed)
+        then menu (atualizarTreinoUsuario usuarios (read id :: Int ) Treino.treinoMed)
     else if treino == "avancado"
-        then menu (atualizarTreinoUsuario usuarios (read id :: Int ) TreinoAvancado.treinoAva)
+        then menu (atualizarTreinoUsuario usuarios (read id :: Int ) Treino.treinoAva)
     else putStrLn "opcao invalida"
     main
 
