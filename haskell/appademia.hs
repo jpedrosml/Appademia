@@ -131,6 +131,10 @@ opcao '3' usuarios = do
     id <- getLine 
     putStrLn "\nPeso atual: "
     pesoAtual <- readLn
+    if usuarioCheck usuarios (read id :: Int)
+        then putStrLn "Peso atualizado com sucesso! Seu peso atual eh: " 
+    else putStrLn "\nUsuario nao cadastrado"
+    
     putStrLn ""
     limparTela
     menu (atualizarPesoUsuario usuarios (read id :: Int) pesoAtual)

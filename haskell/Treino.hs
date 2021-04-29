@@ -6,7 +6,7 @@ treinoIni =  unlines [
 
     "\n-- TREINO INICIANTE xD --",
     
-    "\n Segunda & Quinta: ",
+    "\nSegunda & Quinta: ",
 
     "\n- Leg Press 2x15",
 
@@ -43,7 +43,7 @@ treinoAva =  unlines [
 
     "\n-- TREINO AVANCADO xD --",
     
-    "\n Segunda & Quinta: ",
+    "\nSegunda & Quinta: ",
 
     "\n- Peck deck 3x15",
 
@@ -89,7 +89,7 @@ treinoMed =  unlines [
 
     "\n-- TREINO MEDIO xD --",
     
-    "\n Segunda & Quinta: ",
+    "\nSegunda & Quinta: ",
 
     "\n- Leg press 3x10",
 
