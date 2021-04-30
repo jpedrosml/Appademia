@@ -158,8 +158,10 @@ opcao '3' usuarios = do
         printf "\nSe era este seu objetivo, parabens! Vc perdeu %f kg\n"  pesoEmagreceu 
     else  printf "\nSe era este seu objetivo, parabens! Vc ganhou %f kg\n"  pesoEngordou 
 
-    putStrLn ""
+    putStrLn "\nPressione Enter para voltar ao menu principal."
+    getLine
     limparTela
+
     menu (atualizarPesoUsuario usuarios (read id :: Int) pesoAtual)
 
 --operacoes do programa: exibicao usuario--
