@@ -2,11 +2,11 @@
 
 ## Funções:
 
--> Cadastro de usuarios;\
+-> Cadastro de usuários;\
 -> Cadastro de treinos;\
--> Exibicao dos dados de um usuario cadastrado;\
--> Atualizacao de peso do usuario;\
--> Disponibilizacao de uma aba 'Ajuda', com informacoes uteis
+-> Exibição dos dados de um usuário cadastrado;\
+-> Atualização de peso do usuário;\
+-> Disponibilização de uma aba 'Ajuda', com informações úteis.
 
 ## Como Executar:
 
