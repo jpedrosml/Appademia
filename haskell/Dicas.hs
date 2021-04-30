@@ -1,5 +1,6 @@
 module Dicas where
 
+-- algumas dicas --
 dica :: String
 dica = unlines [
     "-- DICAS IMPORTANTES :) --",

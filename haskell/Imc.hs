@@ -1,5 +1,5 @@
 module Imc where
-
+-- informacoes sobre o imc --
 indice :: String
 indice = unlines [
     "---- IMC ----",
@@ -27,19 +27,6 @@ indice = unlines [
     "\nPressione Enter para voltar ao menu principal."
  ]
 
-
-calculaImc :: Float -> Float -> Float 
-calculaImc p a = p/(a^2)
-
-
-classificacaoImc :: Float -> Float -> String 
-classificacaoImc p a 
-    |calculaImc p a < 18.5 = "Peso abaixo da normalidade"
-    |(calculaImc p a >= 18.5) && (calculaImc p a <= 24.9) = "Peso normal"
-    |(calculaImc p a >= 25.0) && (calculaImc p a <= 29.9)= "Sobrepeso"
-    |(calculaImc p a >= 30.0) && (calculaImc p a <= 34.9) = "Obesidade Grau 1"
-    |(calculaImc p a >= 35.0) && (calculaImc p a <= 39.9) = "Obesidade Grau 2"
-    |otherwise = "Obesidade Morbida Grau 3"
 
     
 

@@ -1,5 +1,6 @@
 module Cancelamento where
 
+-- informacoes sobre o cancelamento --
 cancel :: String
 cancel = unlines [
     "-- CANCELAMENTO DE MATRICULA :( --",

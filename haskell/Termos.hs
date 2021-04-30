@@ -1,4 +1,5 @@
 module Termos where
+--termos do mundo da academia --
 topicos :: String
 topicos =  unlines [
     "-- TERMOS DO MUNDO DA MUSCULAÇÃO xD --",

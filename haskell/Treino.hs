@@ -1,5 +1,5 @@
 module Treino where
-
+-- treinos: iniciante, medio, avancado. se o user eh novato ele obrigatoriamente comecara com o treino iniciante --
 treinoIni :: String
 treinoIni =  unlines [
     "",

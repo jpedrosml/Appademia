@@ -1,5 +1,5 @@
 module Planos where
-
+-- planos de pagamento --
 plano :: String
 plano = unlines [
     "-- PLANOS E PREÇOS :O --",
