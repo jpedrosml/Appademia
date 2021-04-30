@@ -179,7 +179,7 @@ opcao '4' usuarios = do
 -- operacoes do programa: sugestoes de dieta--
 opcao '5' usuarios = do
     limparTela
-    putStrLn "\nQual o seu objetivo? Bulking (b) -- Cutting (c) -- Perda de peso (p)?"
+    putStrLn "Qual o seu objetivo? Bulking (b) -- Cutting (c) -- Perda de peso (p)?"
     guess <- getLine 
     limparTela
     if guess == "b"
@@ -189,13 +189,14 @@ opcao '5' usuarios = do
     else if guess == "p"
         then putStrLn Dieta.perda 
     else menu usuarios
-    getLine 
+    getLine
+    limparTela
     menu usuarios
         
 -- operacoes do programa: guia ajuda --
 opcao '6' usuarios = do
     limparTela
-    putStrLn "\n--- Como o Appademia pode te ajudar? ---"
+    putStrLn "--- Como o Appademia pode te ajudar? ---"
     putStrLn "1 - Termos do mundo da musculação."
     putStrLn "2 - Planos de pagamento."
     putStrLn "3 - Dicas para novatos."
@@ -217,6 +218,7 @@ opcao '6' usuarios = do
         then putStrLn Imc.indice 
     else menu usuarios
     getLine 
+    limparTela
     menu usuarios
 
 -- operacoes do programa: saida--
