@@ -1,6 +1,6 @@
 # Projeto PLP - Appademia
 
-#Funcoes:
+<h>Funcoes</h>:
 
 -> Cadastro de usuarios;\
 -> Cadastro de treinos;\
