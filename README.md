@@ -1,9 +1,10 @@
 # Projeto PLP - Appademia
 
-**Funcoes**:
+<font size= "1">**Funcoes**:</font>
 
 -> Cadastro de usuarios;\
 -> Cadastro de treinos;\
 -> Exibicao dos dados de um usuario cadastrado;\
 -> Atualizacao de peso do usuario;\
--> Disponibilizacao de uma aba 'Ajuda', com informacoes uteis
+-> Disponibilizacao de uma aba 'Ajuda', com informacoes uteis\
+
