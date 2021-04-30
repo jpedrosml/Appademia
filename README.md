@@ -10,7 +10,7 @@
 
 ## Como Executar:
 
-Clone o projeto para um repositorio remoto
+Clone o projeto para um repositorio local:
 ```
 git clone https://github.com/jpedrosml/projeto-plp.git
 ```
