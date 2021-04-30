@@ -121,7 +121,7 @@ opcao '1' usuarios = do
     else putStrLn "opcao invalida"
     getLine
     limparTela
-    main
+    menu usuarios
 
 -- operacoes do programa: cadastro de treinos --    
 opcao '2' usuarios = do
@@ -138,7 +138,7 @@ opcao '2' usuarios = do
     else if treino == "avancado"
         then menu (atualizarTreinoUsuario usuarios (read id :: Int ) Treino.treinoAva)
     else putStrLn "opcao invalida"
-    main
+    menu usuarios
 
 -- operacoes do programa: atualizacao de peso --
 opcao '3' usuarios = do
@@ -174,7 +174,7 @@ opcao '4' usuarios = do
     putStrLn "\nPressione Enter para voltar ao menu principal."
     getLine
     limparTela
-    main
+    menu usuarios
 
 -- operacoes do programa: sugestoes de dieta--
 opcao '5' usuarios = do
@@ -188,9 +188,9 @@ opcao '5' usuarios = do
         then putStrLn Dieta.cutting 
     else if guess == "p"
         then putStrLn Dieta.perda 
-    else main
+    else menu usuarios
     getLine 
-    main
+    menu usuarios
         
 -- operacoes do programa: guia ajuda --
 opcao '6' usuarios = do
@@ -215,9 +215,9 @@ opcao '6' usuarios = do
         then putStrLn Cancelamento.cancel
     else if guess == "5"
         then putStrLn Imc.indice 
-    else main
+    else menu usuarios
     getLine 
-    main
+    menu usuarios
 
 -- operacoes do programa: saida--
 opcao '7' usuarios = do
