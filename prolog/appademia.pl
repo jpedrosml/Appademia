@@ -28,6 +28,20 @@ signUpUser(Data) :-
    write('Cadastro com sucesso!'),
    begin(Output).
 
+%showUser(Data):-
+ %  write('Qual o seu id?: '), nl,
+  % readNumber(Id),
+   %begin(Data)
+   %.
+
+
+dietInput(Data):-
+   toStringBulking(),
+   toStringCutting(),
+   toStringWeightLoss(),
+   begin(Data).
+
+
 
 help :-
    writeln('--- Como o Appademia pode te ajudar? ---'),
@@ -38,6 +52,9 @@ help :-
    writeln('5 - Tabela IMC.'),
    writeln('Opcao escolhida -> ').
 
+printAll(Data):-
+   writeln(Data),
+   begin(Data).
 
 toStringUser(usuario(Nome, Idade, Peso, Altura, Plano, Resposta, Membership, Treino)):-
    nl,
@@ -50,14 +67,153 @@ toStringUser(usuario(Nome, Idade, Peso, Altura, Plano, Resposta, Membership, Tre
    write('Membro desde: '),write(Membership),nl,
    write('Treino: '),write(Treino),nl.
 
+
+toStringBulking:-
+    nl,
+    writeln(
+      '  ---TREINO PARA BULKING:---  
+  
+        --- Cafe da manha ---  
+  
+      - Aveia (3 colheres de sopa); 
+  
+      - Ovo inteiro (2 unidades); 
+  
+      - Ameixas (10g)
+  
+           --- Lanche --- 
+  
+      - Batata doce (100g); 
+  
+      - Peito de frango (90g); 
+  
+      - Pao integral (2 fatias) 
+
+          --- Lanche (2) --- 
+  
+      - Banana (1 unidade); 
+  
+      - Pasta de amendoim; 
+  
+      - Queijo (2 fatias) 
+  
+          --- Almoco --- 
+      
+      - Beterrabas (2 unidades de 70g); 
+
+      - Suco de uva (100ml); 
+
+      - Macarrao integral (40g); 
+
+      - Clara de ovo (4 unidades); 
+
+      - Creatina (5g opcional) 
+  
+         --- Lanche pos treino --- 
+
+      - Whey (25g); 
+  
+      - Glutamina (5g) 
+  
+           --- Jantar --- 
+  
+      - Arroz integral (4 colheres de sopa); 
+  
+      - Peixe (120g) 
+  
+       --- Lanche pos jantar --- 
+  
+      - Batata doce (60g); 
+  
+      - Brocolis, alface; 
+  
+      - Omega 3 (600mg) 
+  
+       ---- AS REFEICOES SAO FEITAS A CADA 3H ---- ').
+
+toStringCutting:-  
+  nl,
+  writeln('  ---TREINO PARA CUTTING:---  
+
+        --- Cafe da manha ---  
+
+      - Tapica com ovos (2 unidades);
+
+      - Mamao (1 fatia grande);
+
+      - Omega 3 (1000mg)
+
+          --- Almoco --- 
+
+      - Abobora, chuchu, couve flor, brocolis, alface (100g)
+
+      - Peito de frango (120g)
+
+      - Azeite de oliva (1 colher de sopa)
+
+          --- Lanche  --- 
+
+      - Aveia (3 colheres de sopa);
+
+      - Iogurte natural desnatado (200ml);
+
+      -  Laranja (1 unidade);
+
+          --- Jantar --- 
+
+      - Abobrinha, espinafre, cenoura (3 porcoes de hortalicas);
+
+      - Arroz integral (2 colheres de sopa);
+
+      - Ovos (3 unidades) ').
+
+toStringWeightLoss:-
+   nl,
+   writeln('   ---TREINO PARA PERDA DE PESO:---  
+
+        --- Cafe da manha ---  
+  
+      - Leite desnatado (240ml);
+  
+      - Omelete (1 ovo);
+
+      - Tomate (1 unidade)
+  
+          --- Almoco --- 
+  
+      - File de peixe(150g);
+  
+      - Grao de bico (2 colheres de sopa);
+  
+      - Salada cozida;
+  
+      - Abacaxi (2 fatias)
+  
+         --- Lanche  --- 
+  
+      - Iogurte desnatado (1 unidade);
+  
+      - Linhaca (2 colheres de sopa);
+  
+         --- Jantar --- 
+  
+      - Peito de frango (150g);
+  
+      - Feijao (2 colheres de sopa);
+  
+      - Salada crua;
+  
+      - Laranja (1 unidade)').
+
 options(Opcao, Data) :-
-   Opcao =:= 1 -> signUpUser(Data);
+   Opcao =:= 1 -> signUpUser(Data); %done
    Opcao =:= 2 -> updateTraining(Data);
    Opcao =:= 3 -> updateWeight(Data);
    Opcao =:= 4 -> showUser(Data);
    Opcao =:= 5 -> dietInput(Data);
-   Opcao =:= 6 -> help;
-   Opcao =:= 7 -> halt(0).
+   Opcao =:= 6 -> help; %done
+   Opcao =:= 7 -> halt(0);
+   Opcao =:= 8 -> printAll(Data). %teste
 
 begin(Data) :-
    menu(),
