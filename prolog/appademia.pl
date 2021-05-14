@@ -9,6 +9,8 @@ readNumber(N) :-
 
 addUsersInfo(Info, Data, [Info|Data]):-!.
 
+
+
 signUpUser(Data) :-
    write('Crie um ID numerico. Ele servira para quaisquer operacao no aplicativo: '), nl,
    readNumber(Id),
@@ -34,11 +36,12 @@ signUpUser(Data) :-
    %begin(Data)
    %.
 
-
 dietInput(Data):-
-   toStringBulking(),
-   toStringCutting(),
-   toStringWeightLoss(),
+   readNumber(Option),
+   Option =:= 1 -> toStringBulking();
+   Option =:= 2 -> toStringCutting();
+   Option =:= 3 -> toStringWeightLoss();
+
    begin(Data).
 
 
@@ -129,7 +132,8 @@ toStringBulking:-
   
       - Omega 3 (600mg) 
   
-       ---- AS REFEICOES SAO FEITAS A CADA 3H ---- ').
+       ---- AS REFEICOES SAO FEITAS A CADA 3H ---- '),
+       begin(Data).
 
 toStringCutting:-  
   nl,
@@ -165,7 +169,9 @@ toStringCutting:-
 
       - Arroz integral (2 colheres de sopa);
 
-      - Ovos (3 unidades) ').
+      - Ovos (3 unidades) '),
+
+      begin(Data).
 
 toStringWeightLoss:-
    nl,
@@ -203,7 +209,9 @@ toStringWeightLoss:-
   
       - Salada crua;
   
-      - Laranja (1 unidade)').
+      - Laranja (1 unidade)'),
+
+       begin(Data).
 
 options(Opcao, Data) :-
    Opcao =:= 1 -> signUpUser(Data); %done
