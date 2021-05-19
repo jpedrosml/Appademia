@@ -33,15 +33,17 @@ showUser(Data):-
    begin(Data).
 
 dietInput(Data):-
-   writeln( 'Qual o seu objetivo? Bulking (1) -- Cutting (2) -- Perda de peso (3)?'),
+   writeln( 'Qual o seu objetivo? Bulking (b) -- Cutting (c) -- Perda de peso (p)?'),
    readNumber(Option),
-   Option =:= 1 -> toStringBulking();
-   Option =:= 2 -> toStringCutting();
-   Option =:= 3 -> toStringWeightLoss();
-
+   dietOption(Option),
    begin(Data).
 
-help :-
+dietOption(Option):-
+   Option =:= 1 -> toStringBulking();
+   Option =:= 2 -> toStringCutting();
+   Option =:= 3 -> toStringWeightLoss().
+
+help(Data) :-
    writeln('--- Como o Appademia pode te ajudar? ---'),
    writeln('1 - Termos do mundo da musculacao.'),
    writeln('2 - Planos de pagamento.'),
@@ -50,13 +52,16 @@ help :-
    writeln('5 - Tabela IMC.'),
    writeln('Opcao escolhida -> '),
    readNumber(Option),
+   helpOption(Option),
+   
+   begin(Data).
+
+helpOption(Option):-
    Option =:= 1 -> toStringTermos();
    Option =:= 2 -> toStringPlanos();
    Option =:= 3 -> toStringDicas();
    Option =:= 4 -> toStringCancel();
-   Option =:= 5 -> toStringIMC();
-   
-   begin(Data).
+   Option =:= 5 -> toStringIMC().
 
 toStringTermos:-
    nl,
@@ -77,8 +82,7 @@ toStringTermos:-
    write("Cutting: Fase de definicao do corpo, onde ha uma dieta restritiva para forcar o corpo a usar gordura como fonte de energia."),
    nl,nl,
    write("Bodybuilding: Equivale a fisiculturismo, em portugues. Desta forma, um bodybuilder eh um fisiculturista.Alguns icones do fisiculturismo: Frank Zane, Dorian Yates, Arnold Schwarzenegger"),
-   nl,nl,
-   write("Pressione Enter para voltar ao menu principal.").
+   nl,nl.
 
 
 toStringPlanos:-
@@ -92,8 +96,7 @@ toStringPlanos:-
    write("Plano Trimestral:     3 x R$87,90"),
    nl,nl,
    write("Plano Mensal:             R$98,00"),
-   nl,nl,
-   write("Pressione Enter para voltar ao menu principal.").
+   nl,nl.
 
 toStringDicas:-
    nl,
@@ -108,8 +111,7 @@ toStringDicas:-
    write("Dica 4: Evite comecar exercicios sem uma alimentacao previa. Lembre-se tambem de alimentar-se com proteinas e carboidratos pos treino. Mas cuidado! Nao faca nenhuma alimentacao extravagante e va diretamente ao treino, o resultado nao sera nada bom!"),
    nl,nl,
    write("Dica 5: E a dica mais importante... descanse! O descanso faz parte da construcao dos musculos em seu corpo. Alem disso, separe um dia da semana para a sua folga, pois eh importante evitar a fadiga!"),
-   nl,nl,
-   write("Pressione Enter para voltar ao menu principal.").
+   nl,nl.
 
 toStringCancel:-
    nl,
@@ -118,8 +120,7 @@ toStringCancel:-
    write("Para realizar o cancelamento da matricula entre em contato com (XX)XXXXX-XXXX."),
    nl,nl,
    write("Ou compareça à administração da academia."),
-   nl,nl,
-   write("Pressione Enter para voltar ao menu principal.").
+   nl,nl.
 
 toStringIMC:-
    nl,
@@ -144,8 +145,7 @@ toStringIMC:-
    write("35.0 - 39.9    OBESIDADE SEVERA (GRAU 2)"),
    nl,nl,
    write(">= 40.0        OBESIDADE MORBIDA (GRAU 3)"),
-   nl,nl,
-   write("Pressione Enter para voltar ao menu principal.").
+   nl,nl.
 
 
 printAll(Data):-
@@ -225,8 +225,7 @@ toStringBulking:-
   
       - Omega 3 (600mg) 
   
-       ---- AS REFEICOES SAO FEITAS A CADA 3H ---- '),
-       begin(Data).
+       ---- AS REFEICOES SAO FEITAS A CADA 3H ---- ').
 
 toStringCutting:-  
   nl,
@@ -262,9 +261,7 @@ toStringCutting:-
 
       - Arroz integral (2 colheres de sopa);
 
-      - Ovos (3 unidades) '),
-
-      begin(Data).
+      - Ovos (3 unidades) ').
 
 toStringWeightLoss:-
    nl,
@@ -302,9 +299,7 @@ toStringWeightLoss:-
   
       - Salada crua;
   
-      - Laranja (1 unidade)'),
-
-       begin(Data).
+      - Laranja (1 unidade)').
 
 options(Opcao, Data) :-
    Opcao =:= 1 -> signUpUser(Data); %done
@@ -312,7 +307,7 @@ options(Opcao, Data) :-
    Opcao =:= 3 -> updateWeight(Data);
    Opcao =:= 4 -> showUser(Data);
    Opcao =:= 5 -> dietInput(Data);
-   Opcao =:= 6 -> help; %done
+   Opcao =:= 6 -> help(Data); %done
    Opcao =:= 7 -> halt(0);
    Opcao =:= 8 -> printAll(Data). %teste
 
