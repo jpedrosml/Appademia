@@ -65,6 +65,31 @@ helpOption(Option):-
    Option =:= 4 -> toStringCancel();
    Option =:= 5 -> toStringIMC().
 
+printAll(Data):-
+   writeln(Data),
+   begin(Data).
+
+
+options(Opcao, Data) :-
+   Opcao =:= 1 -> signUpUser(Data); %done
+   Opcao =:= 2 -> updateTraining(Data);
+   Opcao =:= 3 -> updateWeight(Data);
+   Opcao =:= 4 -> showUser(Data);
+   Opcao =:= 5 -> dietInput(Data); %done
+   Opcao =:= 6 -> help(Data); %done
+   Opcao =:= 7 -> halt(0); %done
+   Opcao =:= 8 -> printAll(Data). %teste
+
+begin(Data) :-
+   menu(),
+   write('   Opcao escolhida -> '), nl,
+   readNumber(Opcao),
+   options(Opcao, Data).
+
+
+%TEXTUAIS
+
+%toString de ajuda, opcao de termos
 toStringTermos:-
    nl,
    writeln('                        -------------------------------- TERMOS DO MUNDO DA MUSCULACAO xD --------------------------------    '),
@@ -88,7 +113,7 @@ toStringTermos:-
    write('Bodybuilding: Equivale a fisiculturismo, em portugues. Desta forma, um bodybuilder eh um fisiculturista.Alguns icones do fisiculturismo: Frank Zane, Dorian Yates, Arnold Schwarzenegger'),
    nl,nl.
 
-
+%toString de ajuda, opcao de planos
 toStringPlanos:-
    nl,
    write('                        -------------------------------- PLANOS E PREÇOS :O --------------------------------'),
@@ -102,6 +127,7 @@ toStringPlanos:-
    write('Plano Mensal:             R$98,00'),
    nl,nl.
 
+%toString de ajuda, opcao de dicas
 toStringDicas:-
    nl,
    write('                        -------------------------------- DICAS IMPORTANTES :) --------------------------------'),
@@ -117,6 +143,7 @@ toStringDicas:-
    write('Dica 5: E a dica mais importante... descanse! O descanso faz parte da construcao dos musculos em seu corpo. Alem disso, separe um dia da semana para a sua folga, pois eh importante evitar a fadiga!'),
    nl,nl.
 
+%toString de ajuda, opcao de cancelamento
 toStringCancel:-
    nl,
    write('                        -------------------------------- CANCELAMENTO DE MATRICULA :( --------------------------------'),
@@ -126,9 +153,10 @@ toStringCancel:-
    write('Ou compareça à administração da academia.'),
    nl,nl.
 
+%toString de ajuda, opcao de IMC
 toStringIMC:-
    nl,
-write('                        -------------------------------- IMC --------------------------------'),
+   write('                        -------------------------------- IMC --------------------------------'),
    nl,nl,
    write('IMC eh a sigla para indice de massa corporal, um calculo que indica se a pessoa esta dentro do peso em relacao a sua altura. O calculo eh feito da seguinte forma: '),
    nl,nl,
@@ -151,11 +179,7 @@ write('                        -------------------------------- IMC ------------
    write('>= 40.0        OBESIDADE MORBIDA (GRAU 3)'),
    nl,nl.
 
-
-printAll(Data):-
-   writeln(Data),
-   begin(Data).
-
+%toString do usuario. Porem, nao funcionando
 toStringUser(usuario(Nome, Idade, Peso, Altura, Plano, Resposta, Membership, Treino)):-
    nl,
    write('Nome: '),write(Nome),nl,
@@ -167,170 +191,169 @@ toStringUser(usuario(Nome, Idade, Peso, Altura, Plano, Resposta, Membership, Tre
    write('Membro desde: '),write(Membership),nl,
    write('Treino: '),write(Treino),nl.
 
-
+%toString dieta bulking
 toStringBulking:-
-    nl,nl
-    write(
-      '  ---TREINO PARA BULKING:---  
-  
-        --- Cafe da manha ---  
-  
-      - Aveia (3 colheres de sopa); 
-  
-      - Ovo inteiro (2 unidades); 
-  
-      - Ameixas (10g)
-  
-           --- Lanche --- 
-  
-      - Batata doce (100g); 
-  
-      - Peito de frango (90g); 
-  
-      - Pao integral (2 fatias) 
+   nl,nl,
+   write('            ---TREINO PARA BULKING:---  '),
+   nl,nl,
+   write('      --- Cafe da manha ---  '),  
+   nl,nl,
+   write('- Aveia (3 colheres de sopa);'), 
+   nl,nl,
+   write('- Ovo inteiro (2 unidades);'), 
+   nl,nl,
+   write('- Ameixas (10g)'),
+   nl,nl,
+   write('      --- Lanche ---   '), 
+   nl,nl,
+   write('- Batata doce (100g);'),
+   nl,nl,
+   write('- Peito de frango (90g);'),
+   nl,nl,
+   write('- Pao integral (2 fatias);'), 
+   nl,nl,
+   write('      --- Lanche (2) ---'),  
+   nl,nl,
+   write('- Banana (1 unidade);'),  
+   nl,nl,
+   write('- Pasta de amendoim;'),  
+   nl,nl,
+   write('- Queijo (2 fatias)'),  
+   nl,nl,
+   write('      --- Almoco ---'),  
+   nl,nl,  
+   write('- Beterrabas (2 unidades de 70g);'),  
+   nl,nl,
+   write('- Suco de uva (100ml);'),  
+   nl,nl,
+   write('- Macarrao integral (40g);'),  
+   nl,nl,
+   write('- Clara de ovo (4 unidades);'),  
+   nl,nl,
+   write('- Creatina (5g opcional)'), 
+   nl,nl,
+   write('      --- Lanche pos treino ---'),  
+   nl,nl,
+   write('- Whey (25g);'),  
+   nl,nl,
+   write('- Glutamina (5g)'),  
+   nl,nl,
+   write('      --- Jantar ---'),  
+   nl,nl,
+   write('- Arroz integral (4 colheres de sopa);'),  
+   nl,nl,
+   write('- Peixe (120g)'),  
+   nl,nl,
+   write('      --- Lanche pos jantar ---'),  
+   nl,nl,
+   write('- Batata doce (60g);'),  
+   nl,nl,
+   write('- Brocolis, alface;'),  
+   nl,nl,
+   write('- Omega 3 (600mg)'),  
+   nl,nl,
+   write('      ---- AS REFEICOES SAO FEITAS A CADA 3H ---- '),
+   nl,nl.
 
-          --- Lanche (2) --- 
-  
-      - Banana (1 unidade); 
-  
-      - Pasta de amendoim; 
-  
-      - Queijo (2 fatias) 
-  
-          --- Almoco --- 
-      
-      - Beterrabas (2 unidades de 70g); 
-
-      - Suco de uva (100ml); 
-
-      - Macarrao integral (40g); 
-
-      - Clara de ovo (4 unidades); 
-
-      - Creatina (5g opcional) 
-  
-         --- Lanche pos treino --- 
-
-      - Whey (25g); 
-  
-      - Glutamina (5g) 
-  
-           --- Jantar --- 
-  
-      - Arroz integral (4 colheres de sopa); 
-  
-      - Peixe (120g) 
-  
-       --- Lanche pos jantar --- 
-  
-      - Batata doce (60g); 
-  
-      - Brocolis, alface; 
-  
-      - Omega 3 (600mg) 
-  
-       ---- AS REFEICOES SAO FEITAS A CADA 3H ---- ').
-
+%toString dieta cutting
 toStringCutting:-  
-  nl,
-  writeln('  ---TREINO PARA CUTTING:---  
+   nl,nl,
+   write('            ---TREINO PARA CUTTING:---  '),
+   nl,nl,
+   write('      --- Cafe da manha --- ') ,
+   nl,nl,
+   write('- Tapica com ovos (2 unidades);'),
+   nl,nl,
+   write('- Mamao (1 fatia grande);'),
+   nl,nl,
+   write('- Omega 3 (1000mg)'),
+   nl,nl,
+   write('      --- Almoco --- '),
+   nl,nl,
+   write('- Abobora, chuchu, couve flor, brocolis, alface (100g)'),
+   nl,nl,
+   write('- Peito de frango (120g)'),
+   nl,nl,
+   write('- Azeite de oliva (1 colher de sopa)'),
+   nl,nl,
+   write('      --- Lanche  --- '),
+   nl,nl,
+   write('- Aveia (3 colheres de sopa);'),
+   nl,nl,
+   write('- Iogurte natural desnatado (200ml);'),
+   nl,nl,
+   write('- Laranja (1 unidade);'),
+   nl,nl,
+   write('      --- Jantar --- '),
+   nl,nl,
+   write('- Abobrinha, espinafre, cenoura (3 porcoes de hortalicas);'),
+   nl,nl,
+   write('- Arroz integral (2 colheres de sopa);'),
+   nl,nl,
+   write('- Ovos (3 unidades)'),
+   nl,nl.
 
-        --- Cafe da manha ---  
-
-      - Tapica com ovos (2 unidades);
-
-      - Mamao (1 fatia grande);
-
-      - Omega 3 (1000mg)
-
-          --- Almoco --- 
-
-      - Abobora, chuchu, couve flor, brocolis, alface (100g)
-
-      - Peito de frango (120g)
-
-      - Azeite de oliva (1 colher de sopa)
-
-          --- Lanche  --- 
-
-      - Aveia (3 colheres de sopa);
-
-      - Iogurte natural desnatado (200ml);
-
-      -  Laranja (1 unidade);
-
-          --- Jantar --- 
-
-      - Abobrinha, espinafre, cenoura (3 porcoes de hortalicas);
-
-      - Arroz integral (2 colheres de sopa);
-
-      - Ovos (3 unidades) ').
-
+%toString dieta perda de peso
 toStringWeightLoss:-
-   nl,
-   writeln('   ---TREINO PARA PERDA DE PESO:---  
+   nl,nl,
+   write('            ---TREINO PARA PERDA DE PESO:---'), 
+   nl,nl,
+   write('      --- Cafe da manha ---'),  
+   nl,nl,
+   write('- Leite desnatado (240ml);'),
+   nl,nl,
+   write('- Omelete (1 ovo);'),
+   nl,nl,
+   write('- Tomate (1 unidade)'),
+   nl,nl,
+   write('      --- Almoco ---'), 
+   nl,nl,
+   write('- File de peixe(150g);'),
+   nl,nl,
+   write('- Grao de bico (2 colheres de sopa);'),
+   nl,nl,
+   write('- Salada cozida;'),
+   nl,nl,
+   write('- Abacaxi (2 fatias)'),
+   nl,nl,
+   write('      --- Lanche  ---'), 
+   nl,nl,
+   write('- Iogurte desnatado (1 unidade);'),
+   nl,nl,
+   write('- Linhaca (2 colheres de sopa);'),
+   nl,nl,
+   write('      --- Jantar ---'), 
+   nl,nl,
+   write('- Peito de frango (150g);'),
+   nl,nl,
+   write('- Feijao (2 colheres de sopa);'),
+   nl,nl,
+   write('- Salada crua;'),
+   nl,nl,
+   write('- Laranja (1 unidade)'),
+   nl,nl.
 
-        --- Cafe da manha ---  
-  
-      - Leite desnatado (240ml);
-  
-      - Omelete (1 ovo);
-
-      - Tomate (1 unidade)
-  
-          --- Almoco --- 
-  
-      - File de peixe(150g);
-  
-      - Grao de bico (2 colheres de sopa);
-  
-      - Salada cozida;
-  
-      - Abacaxi (2 fatias)
-  
-         --- Lanche  --- 
-  
-      - Iogurte desnatado (1 unidade);
-  
-      - Linhaca (2 colheres de sopa);
-  
-         --- Jantar --- 
-  
-      - Peito de frango (150g);
-  
-      - Feijao (2 colheres de sopa);
-  
-      - Salada crua;
-  
-      - Laranja (1 unidade)').
-
-options(Opcao, Data) :-
-   Opcao =:= 1 -> signUpUser(Data); %done
-   Opcao =:= 2 -> updateTraining(Data);
-   Opcao =:= 3 -> updateWeight(Data);
-   Opcao =:= 4 -> showUser(Data);
-   Opcao =:= 5 -> dietInput(Data); %done
-   Opcao =:= 6 -> help(Data); %done
-   Opcao =:= 7 -> halt(0); %done
-   Opcao =:= 8 -> printAll(Data). %teste
-
-begin(Data) :-
-   menu(),
-   write('   Opcao escolhida -> '), nl,
-   readNumber(Opcao),
-   options(Opcao, Data).
-
+%MENU
 menu :-
-   nl, writeln('-------------------------------- Bem vindo ao Appademia! --------------------------------
-   Escolha uma opcao: 
-   1. Novo usuario;
-   2. Atualizar treino;
-   3. Atualizar peso;
-   4. Exibir usuario;
-   5. Recomendacao de Dietas;
-   6. Ajuda 
-   7. Sair'), nl.
+   nl,
+   write('-------------------------------- Bem vindo ao Appademia! --------------------------------'),
+   nl,
+   write('Escolha uma opcao:'),
+   nl, 
+   write('1. Novo usuario;'),
+   nl,
+   write('2. Atualizar treino;'),
+   nl,
+   write('3. Atualizar peso;'),
+   nl,
+   write('4. Exibir usuario;'),
+   nl,
+   write('5. Recomendacao de Dietas;'),
+   nl,
+   write('6. Ajuda;'),
+   nl,
+   write('7. Sair'), 
+   nl.
 
 :- initialization(main).
 main :-
