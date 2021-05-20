@@ -25,7 +25,7 @@ buildUser(Id, Nome, Idade, Peso, Altura, Plano, Resposta, User):-
 %Insere um usuario no sistema
 save(User):-
    retract(usersData(List)),
-   insertTail(List,User,NewList),
+   insertTail(List, User, NewList),
    assert(usersData(NewList)).
 
 insertTail([], Y, [Y]).         
@@ -36,13 +36,13 @@ insertTail([I|R], Y, [I|R1]) :-
 getId(user(Option, Nome, Idade, Peso, Altura, Plano, Resposta), Option).
 
 %Exibe um usuario recebendo seu ID na entrada.
-showUser([],Option) :-
-   write(" ") ,nl.
-showUser([H|_],Option):- 
-   getId(H,Option),
+showUser([], Option) :-
+   write(' ') ,nl.
+showUser([H|_], Option):- 
+   getId(H, Option),
    toStringUser(H).
-showUser([_|T],Option):- 
-   showUser(T,Option).
+showUser([_|T], Option):- 
+   showUser(T, Option).
 
 %---------------------------------------------------------------- Opcoes do menu ----------------------------------------------------------------
 
