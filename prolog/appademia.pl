@@ -1,5 +1,6 @@
 :-include('GuiaAjuda.pl').
 :-include('GuiaDieta.pl').
+:-include('Treino.pl').
 :-style_check(-singleton).
 /*
  * Guarda os dados de um usuario que acabara de se cadastrar no Appademia. Sao salvas
@@ -19,8 +20,8 @@ readNumber(N) :-
 read_line_to_codes(user_input, I), number_codes(N, I). 
 
 %Constroi um usuario
-buildUser(Id, Nome, Idade, Peso, Altura, Plano, Resposta, User):-
-   User = user(Id, Nome, Idade, Peso, Altura, Plano, Resposta).
+buildUser(Id, Nome, Idade, Peso, Altura, Plano, Resposta, Treino, User):-
+   User = user(Id, Nome, Idade, Peso, Altura, Plano, Resposta, Treino).
 
 %Insere um usuario no sistema
 save(User):-
@@ -33,7 +34,7 @@ insertTail([I|R], Y, [I|R1]) :-
    insertTail(R, Y, R1).
 
 %Pega o id do usuario
-getId(user(Option, Nome, Idade, Peso, Altura, Plano, Resposta), Option).
+getId(user(Option, Nome, Idade, Peso, Altura, Plano, Resposta, Treino), Option).
 
 %Exibe um usuario recebendo seu ID na entrada.
 showUser([], Option) :-
@@ -64,19 +65,37 @@ signUpUser(Data) :-
    readString(Plano),
    write('Primeira vez em uma academia?[sim/nao]:'), nl,
    readString(Resposta),
-   buildUser(Id, Nome, Idade, Peso, Altura, Plano, Resposta, User),
+   buildUser(Id, Nome, Idade, Peso, Altura, Plano, Resposta, Treino, User),
    save(User),
    nl,nl,
    write('Cadastro com sucesso!'),
    nl,nl,
    begin(Data).
 
+
+%Atualiza o treino de um usuario - ainda nao feito
+updateTraining(Data):-
+   write('Qual o seu id?: '), nl,
+   readNumber(Id), nl,
+   write('Qual treino você gostaria de cadastrar? [iniciante/medio/avancado]'), nl,
+   readString(String)
+   .
+
+%Atualiza o peso de um usuario, dado o seu id como entrada.
+updateWeight(Data):-
+   write('Qual o seu id?: '), nl,
+   readNumber(Id),nl,
+   write('Peso atual: '), nl.
+   
 %Exibe os dados de um usuario dado o seu ID como entrada.
-showUser(Data):-
+showInfoUser(Data):-
    write('Qual o seu id?: '), nl,
    readNumber(Id),
    usersData(List),
-   showUser(List,Id),
+   showUser(List, Id),
+   write('Pressione Enter para voltar ao menu principal'),
+   nl,nl,
+   readString(_),
    begin(Data).
 
 %Da dicas de dieta de acordo com a escolha do usuario (bulking, cutting ou perda de peso).
@@ -119,7 +138,7 @@ options(Opcao, Data) :-
    Opcao =:= 1 -> signUpUser(Data); %done
    Opcao =:= 2 -> updateTraining(Data);
    Opcao =:= 3 -> updateWeight(Data);
-   Opcao =:= 4 -> showUser(Data); %done
+   Opcao =:= 4 -> showInfoUser(Data); %done
    Opcao =:= 5 -> dietInput(Data); %done
    Opcao =:= 6 -> help(Data); %done
    Opcao =:= 7 -> halt(0). %done
@@ -134,17 +153,18 @@ begin(Data) :-
 %---------------------------------------------------------------- TEXTUAIS ----------------------------------------------------------------
 
 %toString do usuario. Porem, nao funcionando
-toStringUser(user(Id, Nome, Idade, Peso, Altura, Plano, Resposta)):-
+toStringUser(user(Id, Nome, Idade, Peso, Altura, Plano, Resposta, Treino)):-
    nl,nl,
    write('-------------------------------- DADOS DO USUARIO --------------------------------'),
    nl,nl,
-   write('Id: '),write(Id),nl,
-   write('Nome: '),write(Nome),nl,
-   write('Idade: '),write(Idade),nl,
-   write('Peso: '),write(Peso),nl,
-   write('Altura: '),write(Altura),nl,
-   write('Plano: '),write(Plano),nl,
-   write('Iniciante: '),write(Resposta),nl.
+   write('Id: '), write(Id),nl,
+   write('Nome: '), write(Nome),nl,
+   write('Idade: '), write(Idade),nl,
+   write('Peso: '), write(Peso),nl,
+   write('Altura: '), write(Altura),nl,
+   write('Plano: '), write(Plano),nl,
+   write('Iniciante: '), write(Resposta),nl,
+   write('Treino: '), write(Treino),nl.
 
 %---------------------------------------------------------------- MENU TEXTUAL ----------------------------------------------------------------
 menu :-
