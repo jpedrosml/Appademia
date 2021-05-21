@@ -26,7 +26,7 @@ ghci
 ```
 main
 ```
-#### Para Haskell
+#### Para Prolog
 Com o terminal aberto no diretório, execute:
 ```
 swipl -q -f appademia.pl
