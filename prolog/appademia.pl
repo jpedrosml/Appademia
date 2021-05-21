@@ -49,7 +49,6 @@ showUser([H|_], Option):-
    toStringUser(H).
 showUser([_|T], Option):- 
    showUser(T, Option).
-
 %---------------------------------------------------------------- Opcoes do menu ----------------------------------------------------------------
 
 /*Cadastra um usuario no sistema. Para o cadastro, eh necessario o Id, Nome, Idade, Peso, Altura, Plano escolhido e uma Resposta (sim/nao) se o 
@@ -68,7 +67,7 @@ signUpUser(Data) :-
    readNumber(Altura),
    write('Plano de Pagamento[mensal/trimestral/anual]: '), nl,
    readString(Plano),
-   write('Primeira vez em uma academia?[1 - sim/2 - nao]:'), nl, %alteracao para numero temporariamente
+   write('Primeira vez em uma academia?[1 - sim / 2 - nao]:'), nl, %alteracao para numero temporariamente
    readNumber(Resposta), %alteracao para numero temporariamente
    today(DataEntrada),
    predefinedTrainingOption(Resposta,Treino),
@@ -80,6 +79,7 @@ signUpUser(Data) :-
    write('Pressione Enter para voltar ao menu principal'),
    nl,nl,
    readString(_),
+   shell(clear),
    begin(Data).
 
 %Atualiza o treino de um usuario - ainda nao feito
@@ -105,6 +105,7 @@ showInfoUser(Data):-
    write('Pressione Enter para voltar ao menu principal'),
    nl,nl,
    readString(_),
+   shell(clear),
    begin(Data).
 
 %Da dicas de dieta de acordo com a escolha do usuario (bulking, cutting ou perda de peso).
@@ -112,6 +113,8 @@ dietInput(Data):-
    writeln( 'Qual o seu objetivo? Bulking (1) -- Cutting (2) -- Perda de peso (3)?'),
    readNumber(Option),
    dietOption(Option),
+   readString(_),
+   shell(clear),
    begin(Data).
 
 %Menu de opcoes de dieta.
@@ -136,6 +139,8 @@ help(Data) :-
    writeln('Opcao escolhida -> '),
    readNumber(Option),
    helpOption(Option),
+   readString(_),
+   shell(clear),
    begin(Data).
 
 %Menu de opcoes de dieta.
