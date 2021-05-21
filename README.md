@@ -26,3 +26,8 @@ ghci
 ```
 main
 ```
+#### Para Haskell
+Com o terminal aberto no diretório, execute:
+```
+swipl -q -f appademia.pl
+```
