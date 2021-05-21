@@ -8,6 +8,9 @@
  * e uma resposta se o usuario ja esteve em uma academia antes ou nao.
 
  */
+
+cls :- write('\e[H\e[2J').
+
 usersData([]).
 :-dynamic usersData/1.
 
@@ -79,7 +82,6 @@ signUpUser(Data) :-
    write('Pressione Enter para voltar ao menu principal'),
    nl,nl,
    readString(_),
-   shell(clear),
    begin(Data).
 
 %Atualiza o treino de um usuario - ainda nao feito
@@ -105,7 +107,6 @@ showInfoUser(Data):-
    write('Pressione Enter para voltar ao menu principal'),
    nl,nl,
    readString(_),
-   shell(clear),
    begin(Data).
 
 %Da dicas de dieta de acordo com a escolha do usuario (bulking, cutting ou perda de peso).
@@ -114,7 +115,6 @@ dietInput(Data):-
    readNumber(Option),
    dietOption(Option),
    readString(_),
-   shell(clear),
    begin(Data).
 
 %Menu de opcoes de dieta.
@@ -140,7 +140,6 @@ help(Data) :-
    readNumber(Option),
    helpOption(Option),
    readString(_),
-   shell(clear),
    begin(Data).
 
 %Menu de opcoes de dieta.
@@ -162,10 +161,12 @@ options(Opcao, Data) :-
    Opcao =:= 7 -> halt(0). %done
   
 begin(Data) :-
+   cls,
    menu(),
    write('   Opcao escolhida -> '), nl,
    readNumber(Opcao),
-   options(Opcao, Data).
+   options(Opcao, Data),
+   cls.
 
 %---------------------------------------------------------------- TEXTUAIS ----------------------------------------------------------------
 
@@ -205,6 +206,7 @@ menu :-
    nl,
    write('7. Sair'), 
    nl.
+
 
 :- initialization(main).
 main :-
