@@ -86,13 +86,13 @@ signUpUser(Data) :-
    readString(Name),
    write('Idade: '), nl,
    readNumber(Age),
-   write('Peso'), nl,
+   write('Peso: '), nl,
    readNumber(Weight),
-   write('Altura'), nl,
+   write('Altura: '), nl,
    readNumber(Height),
    write('Plano de Pagamento [mensal/trimestral/anual]: '), nl,
    readString(Plan),
-   write('Primeira vez em uma academia?[ 1 - sim / 2 - nao]:'), nl, 
+   write('Primeira vez em uma academia?[ 1 - sim / 2 - nao]: '), nl, 
    readNumber(Answer),
    predefinedTrainingOption(Answer,Training),
    today(SignUpDate),
@@ -154,7 +154,7 @@ showInfoUser(Data):-
    readString(_),
    begin(Data).
 
-%Da dicas de dieta de acordo com a escolha do usuario (bulking, cutting ou perda de Weight).
+%Da dicas de dieta de acordo com a escolha do usuario (bulking, cutting ou perda de peso).
 dietInput(Data):-
    writeln( 'Qual o seu objetivo? Bulking (1) -- Cutting (2) -- Perda de peso (3)?'),
    readNumber(Option),
@@ -215,7 +215,7 @@ begin(Data) :-
 
 %---------------------------------------------------------------- TEXTUAIS ----------------------------------------------------------------
 
-%toString do usuario. Porem, nao funcionando
+%toString do usuario.
 toStringUser(user(Id, Name, Age, Weight, Height, Plan, Answer, SignUpDate, Training)):-
    nl,nl,
    write('-------------------------------- DADOS DO USUARIO --------------------------------'),
