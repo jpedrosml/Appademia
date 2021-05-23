@@ -132,11 +132,11 @@ newTraining(Answer, NewTraining):-
 updateWeight(Data):-
    write('Qual o seu id?: '), nl,
    readNumber(Id),nl,
-   write('Weight atual: '), nl,
+   write('Peso atual: '), nl,
    readNumber(NewWeight),nl,
    setWeight(Id, NewWeight),
    nl,nl,
-   write('Weight atualizado com sucesso!'),
+   write('Peso atualizado com sucesso!'),
    nl,nl,
    write('Pressione Enter para voltar ao menu principal'),
    readString(_),
