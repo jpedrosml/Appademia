@@ -14,10 +14,8 @@ cls :- write('\e[H\e[2J').
 usersData([]).
 :-dynamic usersData/1.
 
-today(Today) :-
-   get_time(Stamp),
-   stamp_date_time(Stamp, DateTime, local),
-   date_time_value(date, DateTime, Today).
+today(Today) :- get_time(X), format_time(atom(Today), '%d/%m/%Y', X).
+
 
 %Le string
 readString(S) :-
@@ -31,24 +29,45 @@ read_line_to_codes(user_input, I), number_codes(N, I).
 buildUser(Id, Nome, Idade, Peso, Altura, Plano, Resposta, DataEntrada, Treino, User):-
    User = user(Id, Nome, Idade, Peso, Altura, Plano, Resposta, DataEntrada, Treino).
 
-%Insere um usuario no sistema
+%Insere um usuario no sistema 
 save(User):-
    retract(usersData(List)),
    insertTail(List, User, NewList),
    assert(usersData(NewList)).
 
 insertTail([], Y, [Y]).         
-insertTail([I|R], Y, [I|R1]) :-
+insertTail([I|R], Y, [I|R1]):-
    insertTail(R, Y, R1).
 
-%Pega o id do usuario
-getId(user(Option, Nome, Idade, Peso, Altura, Plano, Resposta, DataEntrada, Treino), Option).
+%Compara o id do usuario
+idComparator(user(Option, Nome, Idade, Peso, Altura, Plano, Resposta, DataEntrada, Treino), Option).
+
+%Atualiza o peso do usuario, recebendo o id dele e o novo peso
+setWeight(Id, NovoPeso):-
+   retract(usersData(UsersCur)),
+   (   append(X,[UserCur|Y],UsersCur)
+   ->  UserCur=user(Id, Nome, Idade, _Peso, Altura, Plano, Resposta, DataEntrada, Treino),
+       UserUpd=user(Id, Nome, Idade, NovoPeso, Altura, Plano, Resposta, DataEntrada, Treino),
+       append(X,[UserUpd|Y],UsersUpd)
+   ;   UsersUpd=UsersCur
+   ),
+   assert(usersData(UsersUpd)).
+
+setTraining(Id, NovoTreino):-
+   retract(usersData(UsersCur)),
+   (   append(X,[UserCur|Y],UsersCur)
+   ->  UserCur=user(Id, Nome, Idade, Peso, Altura, Plano, Resposta, DataEntrada, _Treino),
+       UserUpd=user(Id, Nome, Idade, Peso, Altura, Plano, Resposta, DataEntrada, NovoTreino),
+       append(X,[UserUpd|Y],UsersUpd)
+   ;   UsersUpd=UsersCur
+   ),
+   assert(usersData(UsersUpd)).
 
 %Exibe um usuario recebendo seu ID na entrada.
 showUser([], Option) :-
    write(' ') ,nl.
 showUser([H|_], Option):- 
-   getId(H, Option),
+   idComparator(H, Option),
    toStringUser(H).
 showUser([_|T], Option):- 
    showUser(T, Option).
@@ -70,10 +89,10 @@ signUpUser(Data) :-
    readNumber(Altura),
    write('Plano de Pagamento[mensal/trimestral/anual]: '), nl,
    readString(Plano),
-   write('Primeira vez em uma academia?[1 - sim / 2 - nao]:'), nl, %alteracao para numero temporariamente
-   readNumber(Resposta), %alteracao para numero temporariamente
-   today(DataEntrada),
+   write('Primeira vez em uma academia?[1 - sim / 2 - nao]:'), nl, 
+   readNumber(Resposta),
    predefinedTrainingOption(Resposta,Treino),
+   today(DataEntrada),
    buildUser(Id, Nome, Idade, Peso, Altura, Plano, Resposta, DataEntrada, Treino, User),
    save(User),
    nl,nl,
@@ -84,18 +103,41 @@ signUpUser(Data) :-
    readString(_),
    begin(Data).
 
-%Atualiza o treino de um usuario - ainda nao feito
+%Atualiza o treino de um usuario
 updateTraining(Data):-
    write('Qual o seu id?: '), nl,
    readNumber(Id), nl,
-   write('Qual treino você gostaria de cadastrar? [iniciante/medio/avancado]'), nl,
-   readString(String).
+   write('Qual treino você gostaria de cadastrar? [1 - iniciante / 2 - medio/ 3 - avancado]'), nl,
+   readNumber(Resposta),
+   newTraining(Resposta, NovoTreino),
+   setTraining(Id, NovoTreino),
+   nl,nl,
+   write('Treino atualizado com sucesso!'),
+   nl,nl,
+   write('Pressione Enter para voltar ao menu principal'),
+   nl,nl,
+   readString(_),
+   begin(Data).
+
+%Menu de opcao de treino
+newTraining(Resposta, NovoTreino):-
+   Resposta =:= 1 -> toStringTreinoIni(NovoTreino);
+   Resposta =:= 2 -> toStringTreinoMed(NovoTreino);
+   Resposta =:= 3 -> toStringTreinoAva(NovoTreino).
 
 %Atualiza o peso de um usuario, dado o seu id como entrada.
 updateWeight(Data):-
    write('Qual o seu id?: '), nl,
    readNumber(Id),nl,
-   write('Peso atual: '), nl.
+   write('Peso atual: '), nl,
+   readNumber(NovoPeso),nl,
+   setWeight(Id, NovoPeso),
+   nl,nl,
+   write('Peso atualizado com sucesso!'),
+   nl,nl,
+   write('Pressione Enter para voltar ao menu principal'),
+   readString(_),
+   begin(Data).
    
 %Exibe os dados de um usuario dado o seu ID como entrada.
 showInfoUser(Data):-
@@ -161,12 +203,12 @@ options(Opcao, Data) :-
    Opcao =:= 7 -> halt(0). %done
   
 begin(Data) :-
-   cls,
+   %cls,
    menu(),
    write('   Opcao escolhida -> '), nl,
    readNumber(Opcao),
-   options(Opcao, Data),
-   cls.
+   options(Opcao, Data).
+   %cls.
 
 %---------------------------------------------------------------- TEXTUAIS ----------------------------------------------------------------
 
@@ -210,4 +252,5 @@ menu :-
 
 :- initialization(main).
 main :-
+   prompt(_, ''),
    begin(Data).     
