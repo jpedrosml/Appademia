@@ -1,6 +1,6 @@
-%toString treino iniciante
-toStringTreinoIni(Treino):-
-    Treino = ('-------------------------------- TREINO INICIANTE xD --------------------------------
+%toString Treino iniciante
+toStringBeginner(Training):-
+    Training = ('-------------------------------- TREINO INICIANTE xD --------------------------------
     
     Segunda & Quinta: 
     
@@ -26,15 +26,15 @@ toStringTreinoIni(Treino):-
     
     - Mesa Flexora 3x10
     
-    - Biceps alternados 3x2010 cada braco
+    - Biceps alternados 3x10 cada braco
     
     - Barra reta 3x10
     
     Domingo - Rest day'). 
 
-%toString treino medio
-toStringTreinoMed(Treino):-
-    Treino = ('-------------------------------- TREINO MEDIO xD --------------------------------
+%toString Treino medio
+toStringIntermediate(Training):-
+    Training = ('-------------------------------- TREINO MEDIO xD --------------------------------
     
     Segunda & Quinta: 
     
@@ -70,9 +70,9 @@ toStringTreinoMed(Treino):-
     
     Domingo - Rest day').
 
-%toString treino avancado 
-toStringTreinoAva(Treino):-
-   Treino = ('-------------------------------- TREINO AVANCADO xD --------------------------------
+%toString Treino avancado 
+toStringAdvanced(Training):-
+   Training = ('-------------------------------- TREINO AVANCADO xD --------------------------------
     
     Segunda & Quinta: 
     

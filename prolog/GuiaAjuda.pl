@@ -1,14 +1,14 @@
 %toString de termos
-toStringTermos:-
+toStringTerms:-
    nl,
    writeln('                        -------------------------------- TERMOS DO MUNDO DA MUSCULACAO xD --------------------------------    '),
    nl,nl,
-   write('ABS: Abreviacao para os musculos do abdomen. Sempre que escutar ou ler alguem dizendo que ira treinar o abs, eh do abdomen que ela esta falando!'),
+   write('ABS: Abreviacao para os musculos do abdomen. Sempre que escutar ou ler alguem dizendo que ira treinar o abs, eh do abdomen que ela esta falando!'),nl,
    write('Exemplos de treinos de abdomen: Plank(max), Lateral Plank (max), Leg Raises(3x10)'),
    nl,nl,
    write('Acido Latico: Resultado natural do metabolismo. Quando um individuo sente o musculo queimando durante um exercicio, eh o resultado do acumulo de acido latico devido a falta de oxigenio no sangue.'),
    nl,nl,
-   write('Aerobico: Exercicios feitos com o objetivo de aumentar a frequencia cardiaca. Durante um exercicio aerobico, a respiracao eh mais acelerada, fazendo com que a quantidade de oxigenio seja maximizada.'),
+   write('Aerobico: Exercicios feitos com o objetivo de aumentar a frequencia cardiaca. Durante um exercicio aerobico, a respiracao eh mais acelerada, fazendo com que a quantidade de oxigenio seja maximizada.'),nl,
    write('Exemplos: Jogging, Jumping rope, Swimming'),
    nl,nl,
    write('Anabolismo: Parte do metabolismo que se refere a sintese de substancias. Por exemplo, a partir de aminoacidos (blocos que formam proteinas que ingeirmos) ha a sintese de proteina no musculo'),
@@ -19,12 +19,12 @@ toStringTermos:-
    nl,nl,
    write('Cutting: Fase de definicao do corpo, onde ha uma dieta restritiva para forcar o corpo a usar gordura como fonte de energia.'),
    nl,nl,
-   write('Bodybuilding: Equivale a fisiculturismo, em portugues. Desta forma, um bodybuilder eh um fisiculturista.Alguns icones do fisiculturismo: Frank Zane, Dorian Yates, Arnold Schwarzenegger'),
+   write('Bodybuilding: Equivale a fisiculturismo, em portugues. Desta forma, um bodybuilder eh um fisiculturista. Alguns icones do fisiculturismo: Frank Zane, Dorian Yates, Arnold Schwarzenegger'),
    nl,nl,
    write('Pressione Enter para voltar ao menu principal').
 
 %toString de ajuda, opcao de planos
-toStringPlanos:-
+toStringPlans:-
    nl,
    write('                        -------------------------------- PLANOS E PREÇOS :O --------------------------------'),
    nl,nl,
@@ -39,7 +39,7 @@ toStringPlanos:-
    write('Pressione Enter para voltar ao menu principal').
 
 %toString de ajuda, opcao de dicas
-toStringDicas:-
+toStringTips:-
    nl,
    write('                        -------------------------------- DICAS IMPORTANTES :) --------------------------------'),
    nl,nl,
