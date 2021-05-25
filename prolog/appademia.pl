@@ -116,7 +116,7 @@ signUpUser(Data) :-
 updateTraining(Data):-
    write('Qual o seu id?: '), nl,
    readNumber(Id), nl,
-   write('Qual treino você gostaria de cadastrar? [1 - iniciante / 2 - medio / 3 - avancado]'), nl,
+   write('Qual treino voce gostaria de cadastrar? [1 - iniciante / 2 - medio / 3 - avancado]'), nl,
    readNumber(Answer),
    newTraining(Answer, NewTraining),
    setTraining(Id, NewTraining),
@@ -183,7 +183,7 @@ predefinedTrainingOption(Answer, Training):-
 help(Data) :-
    writeln('--- Como o Appademia pode te ajudar? ---'),
    writeln('1 - Termos do mundo da musculacao.'),
-   writeln('2 - Plans de pagamento.'),
+   writeln('2 - Planos de pagamento.'),
    writeln('3 - Dicas para novatos.'),
    writeln('4 - Cancelamento de matricula.'),
    writeln('5 - Tabela IMC.'),
