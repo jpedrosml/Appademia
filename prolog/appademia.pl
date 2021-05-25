@@ -29,6 +29,7 @@ read_line_to_codes(user_input, I), number_codes(N, I).
 %Constroi um usuario
 buildUser(Id, Name, Age, Weight, Height, Plan, Answer, SignUpDate, Training, User):-
    User = user(Id, Name, Age, Weight, Height, Plan, Answer, SignUpDate, Training).
+:-dynamic user/9.
 
 %Insere um usuario no sistema 
 save(User):-
@@ -54,25 +55,30 @@ showUser([_|T], Option):-
 
 %Atualiza o peso do usuario, recebendo o id dele e o novo peso
 setWeight(Id, NewWeight):-
-   retract(usersData(UsersCur)),
-   (   append(X,[UserCur|Y],UsersCur)
-   ->  UserCur=user(Id, Name, Age, _Weight, Height, Plan, Answer, SignUpDate, Training),
-       UserUpd=user(Id, Name, Age, NewWeight, Height, Plan, Answer, SignUpDate, Training),
-       append(X,[UserUpd|Y],UsersUpd)
-   ;   UsersUpd=UsersCur
+   retract(usersData(CurrentUsers)),
+   (   append(X,[CurrentUser|Y],CurrentUsers),
+       CurrentUser=user(Id, Name, Age, _Weight, Height, Plan, Answer, SignUpDate, Training)
+   ->  UpdatedUser=user(Id, Name, Age, NewWeight, Height, Plan, Answer, SignUpDate, Training),
+       append(X,[UpdatedUser|Y],UpdatedUsers)
+   ;   UpdatedUsers=CurrentUsers
    ),
-   assert(usersData(UsersUpd)).
+   Dif is abs(NewWeight - _Weight),
+   (   NewWeight > _Weight
+   ->  format('Se era este seu objetivo, parabens! Voce ganhou ~1f Kg', [Dif])
+   ;   format('Se era este seu objetivo, parabens! Voce perdeu ~1f Kg',   [Dif]) ),
+
+   assert(usersData(UpdatedUsers)).
 
 %Atualiza o treino de um usuario, recebendo o seu id na entrada.
 setTraining(Id, NewTraining):-
-   retract(usersData(UsersCur)),
-   (   append(X,[UserCur|Y],UsersCur)
-   ->  UserCur=user(Id, Name, Age, Weight, Height, Plan, Answer, SignUpDate, _Training),
-       UserUpd=user(Id, Name, Age, Weight, Height, Plan, Answer, SignUpDate, NewTraining),
-       append(X,[UserUpd|Y],UsersUpd)
-   ;   UsersUpd=UsersCur
+   retract(usersData(CurrentUsers)),
+   (   append(X,[CurrentUser|Y],CurrentUsers),
+       CurrentUser=user(Id, Name, Age, Weight, Height, Plan, Answer, SignUpDate, _Training)
+    -> UpdatedUser=user(Id, Name, Age, Weight, Height, Plan, Answer, SignUpDate, NewTraining),
+       append(X,[UpdatedUser|Y],UpdatedUsers)
+   ;   UpdatedUsers=CurrentUsers
    ),
-   assert(usersData(UsersUpd)).
+   assert(usersData(UpdatedUsers)).
 
 %---------------------------------------------------------------- Opcoes do menu ----------------------------------------------------------------
 
@@ -199,19 +205,19 @@ helpOption(Option):-
 options(Opcao, Data) :-
    Opcao =:= 1 -> signUpUser(Data); %done
    Opcao =:= 2 -> updateTraining(Data); %done
-   Opcao =:= 3 -> updateWeight(Data);
+   Opcao =:= 3 -> updateWeight(Data); %done
    Opcao =:= 4 -> showInfoUser(Data); %done
    Opcao =:= 5 -> dietInput(Data); %done
    Opcao =:= 6 -> help(Data); %done
    Opcao =:= 7 -> halt(0). %done
   
 begin(Data) :-
-   cls,
+   %cls. nao funciona no windows.
    menu(),
    write('   Opcao escolhida -> '), nl,
    readNumber(Opcao),
    options(Opcao, Data).
-   cls.
+   %cls. nao funciona no windows.
 
 %---------------------------------------------------------------- TEXTUAIS ----------------------------------------------------------------
 
