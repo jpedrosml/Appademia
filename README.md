@@ -31,3 +31,5 @@ Com o terminal aberto no diretório, execute:
 ```
 swipl -q -f appademia.pl ou swipl [appademia].
 ```
+
+p.s: O 'cls' (limpeza de terminal) não funciona no windows, então o comentamos onde está sendo utilizado.
